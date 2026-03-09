@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codeupipe-postgres"
+version = "0.1.0"
+description = "PostgreSQL queries, transactions, and bulk insert for codeupipe pipelines"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+authors = [{name = "codeuchain"}]
+dependencies = ["codeupipe>=0.8.0", "psycopg2-binary>=2.9.0"]
+
+[project.urls]
+Homepage = "https://github.com/codeuchain/codeupipe-marketplace"
+Repository = "https://github.com/codeuchain/codeupipe-marketplace"
