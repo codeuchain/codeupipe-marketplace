@@ -39,8 +39,7 @@ Edit `components/your-package-name/manifest.json`:
   "name": "codeupipe-twilio",
   "provider": "twilio",
   "type": "connector",
-  "pypi": "codeupipe-twilio",
-  "repo": "https://github.com/your-org/codeupipe-twilio",
+  "repo": "https://github.com/codeuchain/codeupipe-marketplace",
   "description": "Twilio SMS, voice, and messaging for codeupipe pipelines",
   "categories": ["communications", "sms", "voice"],
   "filters": ["TwilioSendSMS", "TwilioMakeCall"],
@@ -48,7 +47,7 @@ Edit `components/your-package-name/manifest.json`:
   "min_codeupipe": "0.8.0",
   "latest": "1.0.0",
   "author": "Your Name",
-  "license": "MIT"
+  "license": "Apache-2.0"
 }
 ```
 
@@ -56,19 +55,18 @@ Edit `components/your-package-name/manifest.json`:
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| `name` | ✅ | PyPI package name (must start with `codeupipe-`) |
+| `name` | ✅ | Package name (must start with `codeupipe-`) |
 | `provider` | ✅ | Short provider identifier (e.g., `stripe`, `twilio`) |
 | `type` | ✅ | One of: `connector`, `filter`, `hook`, `bundle` |
-| `pypi` | ✅ | PyPI package name (usually same as `name`) |
-| `repo` | ✅ | GitHub/GitLab repo URL |
+| `repo` | ✅ | Always `https://github.com/codeuchain/codeupipe-marketplace` |
 | `description` | ✅ | One-line description (< 120 chars) |
 | `categories` | ✅ | List of category tags (lowercase, hyphenated) |
 | `filters` | ✅ | List of exported Filter/StreamFilter class names |
 | `trust` | ✅ | `"community"` for community submissions |
 | `min_codeupipe` | ✅ | Minimum codeupipe version required |
-| `latest` | ✅ | Latest published version on PyPI |
+| `latest` | ✅ | Latest published version |
 | `author` | ✅ | Author or organization name |
-| `license` | ✅ | SPDX license identifier |
+| `license` | ✅ | `Apache-2.0` (all marketplace components) |
 
 ### 4. Validate Locally
 

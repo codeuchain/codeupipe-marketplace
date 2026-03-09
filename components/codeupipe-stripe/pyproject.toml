@@ -7,7 +7,7 @@ name = "codeupipe-stripe"
 version = "0.1.0"
 description = "Stripe checkout, subscriptions, webhooks, and customer management"
 readme = "README.md"
-license = {text = "MIT"}
+license = {text = "Apache-2.0"}
 requires-python = ">=3.9"
 authors = [{name = "codeuchain"}]
 dependencies = ["codeupipe>=0.8.0", "stripe>=7.0.0"]

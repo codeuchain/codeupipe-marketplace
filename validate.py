@@ -24,7 +24,7 @@ SCHEMA_FILE = ROOT / "schema.json"
 # ── Validation rules (no jsonschema dependency) ──────────────────
 
 REQUIRED_FIELDS = [
-    "name", "provider", "type", "pypi", "repo", "description",
+    "name", "provider", "type", "repo", "description",
     "categories", "filters", "trust", "min_codeupipe", "latest",
     "author", "license",
 ]

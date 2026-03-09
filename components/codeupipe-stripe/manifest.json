@@ -2,8 +2,7 @@
   "name": "codeupipe-stripe",
   "provider": "stripe",
   "type": "connector",
-  "pypi": "codeupipe-stripe",
-  "repo": "https://github.com/codeuchain/codeupipe-stripe",
+  "repo": "https://github.com/codeuchain/codeupipe-marketplace",
   "description": "Stripe checkout, subscriptions, webhooks, and customer management",
   "categories": ["payments", "billing"],
   "filters": ["StripeCheckout", "StripeSubscription", "StripeWebhook", "StripeCustomer"],
@@ -11,5 +10,5 @@
   "min_codeupipe": "0.8.0",
   "latest": "0.1.0",
   "author": "codeuchain",
-  "license": "MIT"
+  "license": "Apache-2.0"
 }

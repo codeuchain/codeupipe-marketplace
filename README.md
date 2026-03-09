@@ -63,7 +63,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide.
 | Tier | Badge | Meaning |
 |------|-------|---------|
 | **verified** | ✅ | Published by codeuchain org, reviewed and tested |
-| **community** | 🔷 | Published on PyPI, community-submitted, CI-validated |
+| **community** | 🔷 | Community-submitted, CI-validated |
 | **unindexed** | — | Works via entry points but not registered here |
 
 All tiers work with `cup connect --list`. The marketplace only affects discoverability — not functionality.
@@ -86,8 +86,7 @@ Every component has a `manifest.json`:
   "name": "codeupipe-example",
   "provider": "example",
   "type": "connector",
-  "pypi": "codeupipe-example",
-  "repo": "https://github.com/you/codeupipe-example",
+  "repo": "https://github.com/codeuchain/codeupipe-marketplace",
   "description": "One-line description of what this does",
   "categories": ["category1", "category2"],
   "filters": ["FilterName1", "FilterName2"],
@@ -95,7 +94,7 @@ Every component has a `manifest.json`:
   "min_codeupipe": "0.8.0",
   "latest": "0.1.0",
   "author": "Your Name",
-  "license": "MIT"
+  "license": "Apache-2.0"
 }
 ```
 

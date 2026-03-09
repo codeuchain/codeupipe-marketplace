@@ -2,8 +2,7 @@
   "name": "codeupipe-google-ai",
   "provider": "google-ai",
   "type": "connector",
-  "pypi": "codeupipe-google-ai",
-  "repo": "https://github.com/codeuchain/codeupipe-google-ai",
+  "repo": "https://github.com/codeuchain/codeupipe-marketplace",
   "description": "Google AI (Gemini) — multimodal generation, embeddings, and vision",
   "categories": ["ai", "llm", "multimodal", "vision", "embeddings"],
   "filters": ["GeminiGenerate", "GeminiGenerateStream", "GeminiEmbed", "GeminiVision"],
@@ -11,5 +10,5 @@
   "min_codeupipe": "0.8.0",
   "latest": "0.1.0",
   "author": "codeuchain",
-  "license": "MIT"
+  "license": "Apache-2.0"
 }

@@ -2,8 +2,7 @@
   "name": "codeupipe-CHANGEME",
   "provider": "CHANGEME",
   "type": "connector",
-  "pypi": "codeupipe-CHANGEME",
-  "repo": "https://github.com/YOUR-ORG/codeupipe-CHANGEME",
+  "repo": "https://github.com/codeuchain/codeupipe-marketplace",
   "description": "CHANGEME — one-line description of what this component does",
   "categories": ["CHANGEME"],
   "filters": ["ChangeMe"],
@@ -11,5 +10,5 @@
   "min_codeupipe": "0.8.0",
   "latest": "0.1.0",
   "author": "Your Name",
-  "license": "MIT"
+  "license": "Apache-2.0"
 }

@@ -7,7 +7,7 @@ name = "codeupipe-resend"
 version = "0.1.0"
 description = "Resend transactional email and template rendering for codeupipe pipelines"
 readme = "README.md"
-license = {text = "MIT"}
+license = {text = "Apache-2.0"}
 requires-python = ">=3.9"
 authors = [{name = "codeuchain"}]
 dependencies = ["codeupipe>=0.8.0", "resend>=0.7.0"]

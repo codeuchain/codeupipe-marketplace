@@ -7,7 +7,6 @@
     "name",
     "provider",
     "type",
-    "pypi",
     "repo",
     "description",
     "categories",
@@ -31,12 +30,13 @@
     },
     "type": {
       "type": "string",
-      "enum": ["connector", "filter", "hook", "bundle"],
+      "enum": [
+        "connector",
+        "filter",
+        "hook",
+        "bundle"
+      ],
       "description": "Component type."
-    },
-    "pypi": {
-      "type": "string",
-      "description": "PyPI package name (usually same as 'name')."
     },
     "repo": {
       "type": "string",
@@ -67,7 +67,10 @@
     },
     "trust": {
       "type": "string",
-      "enum": ["verified", "community"],
+      "enum": [
+        "verified",
+        "community"
+      ],
       "description": "Trust tier. 'community' for all PRs; 'verified' set by maintainers."
     },
     "min_codeupipe": {
@@ -78,7 +81,7 @@
     "latest": {
       "type": "string",
       "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
-      "description": "Latest published version on PyPI (semver)."
+      "description": "Latest published version (semver)."
     },
     "author": {
       "type": "string",
@@ -86,7 +89,7 @@
     },
     "license": {
       "type": "string",
-      "description": "SPDX license identifier (e.g., 'MIT', 'Apache-2.0')."
+      "description": "SPDX license identifier. All marketplace components use 'Apache-2.0'."
     }
   },
   "additionalProperties": false

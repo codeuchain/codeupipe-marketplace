@@ -2,8 +2,7 @@
   "name": "codeupipe-resend",
   "provider": "resend",
   "type": "connector",
-  "pypi": "codeupipe-resend",
-  "repo": "https://github.com/codeuchain/codeupipe-resend",
+  "repo": "https://github.com/codeuchain/codeupipe-marketplace",
   "description": "Resend transactional email and template rendering for codeupipe pipelines",
   "categories": ["email", "notifications"],
   "filters": ["ResendEmail", "ResendTemplate"],
@@ -11,5 +10,5 @@
   "min_codeupipe": "0.8.0",
   "latest": "0.1.0",
   "author": "codeuchain",
-  "license": "MIT"
+  "license": "Apache-2.0"
 }
