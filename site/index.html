@@ -29,6 +29,8 @@
   --green:         #3fb950;
   --blue:          #58a6ff;
   --red:           #f85149;
+  --star:          #e3b341;
+  --star-dim:      rgba(227,179,65,0.15);
   --radius:        8px;
   --radius-lg:     12px;
   --shadow:        0 2px 8px rgba(0,0,0,0.3);
@@ -58,7 +60,6 @@ a:hover { text-decoration: underline; }
   top: 0;
   z-index: 100;
 }
-
 .header-inner {
   max-width: 1280px;
   margin: 0 auto;
@@ -67,7 +68,6 @@ a:hover { text-decoration: underline; }
   gap: 24px;
   height: 64px;
 }
-
 .logo {
   display: flex;
   align-items: center;
@@ -78,786 +78,413 @@ a:hover { text-decoration: underline; }
   white-space: nowrap;
   text-decoration: none;
 }
-
 .logo:hover { text-decoration: none; }
-
 .logo-icon {
-  width: 32px;
-  height: 32px;
+  width: 32px; height: 32px;
   background: linear-gradient(135deg, var(--accent), var(--amber));
   border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   font-size: 18px;
 }
-
 .logo span { color: var(--accent); }
 .logo em { font-style: normal; color: var(--text-muted); font-weight: 400; }
-
 .header-links {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-left: auto;
-  font-size: 14px;
+  display: flex; align-items: center; gap: 16px; margin-left: auto; font-size: 14px;
 }
-
-.header-links a {
-  color: var(--text-secondary);
-  transition: color var(--transition);
-}
-
+.header-links a { color: var(--text-secondary); transition: color var(--transition); }
 .header-links a:hover { color: var(--text-primary); text-decoration: none; }
 
 /* ── Search Bar ────────────────────────────────────────────── */
-.search-section {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 32px 24px 0;
-}
-
-.search-wrap {
-  position: relative;
-  max-width: 600px;
-}
-
+.search-section { max-width: 1280px; margin: 0 auto; padding: 32px 24px 0; }
+.search-wrap { position: relative; max-width: 600px; }
 .search-icon {
-  position: absolute;
-  left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--text-muted);
-  pointer-events: none;
-  font-size: 16px;
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  color: var(--text-muted); pointer-events: none; font-size: 16px;
 }
-
 .search-input {
-  width: 100%;
-  padding: 12px 16px 12px 42px;
-  font-size: 15px;
-  font-family: var(--font);
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  color: var(--text-primary);
-  outline: none;
+  width: 100%; padding: 12px 16px 12px 42px; font-size: 15px;
+  font-family: var(--font); background: var(--bg-surface);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  color: var(--text-primary); outline: none;
   transition: border-color var(--transition), box-shadow var(--transition);
 }
-
 .search-input::placeholder { color: var(--text-muted); }
+.search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
 
-.search-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-glow);
-}
-
-/* ── Toolbar (filters + stats) ─────────────────────────────── */
+/* ── Toolbar ───────────────────────────────────────────────── */
 .toolbar {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 20px 24px 0;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  max-width: 1280px; margin: 0 auto; padding: 20px 24px 0;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
 }
-
 .chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 14px;
-  font-size: 13px;
-  font-weight: 500;
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all var(--transition);
-  user-select: none;
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 6px 14px; font-size: 13px; font-weight: 500;
+  background: var(--bg-surface); border: 1px solid var(--border);
+  border-radius: 20px; color: var(--text-secondary);
+  cursor: pointer; transition: all var(--transition); user-select: none;
 }
-
-.chip:hover {
-  border-color: var(--border-light);
-  color: var(--text-primary);
-  background: var(--bg-hover);
-}
-
-.chip.active {
-  background: var(--accent-glow);
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
+.chip:hover { border-color: var(--border-light); color: var(--text-primary); background: var(--bg-hover); }
+.chip.active { background: var(--accent-glow); border-color: var(--accent); color: var(--accent); }
 .chip .count {
-  font-size: 11px;
-  background: var(--bg-hover);
-  padding: 1px 6px;
-  border-radius: 10px;
-  color: var(--text-muted);
+  font-size: 11px; background: var(--bg-hover); padding: 1px 6px;
+  border-radius: 10px; color: var(--text-muted);
 }
-
-.chip.active .count {
-  background: var(--accent-dim);
-  color: #fff;
+.chip.active .count { background: var(--accent-dim); color: #fff; }
+.toolbar-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.stat-text { font-size: 13px; color: var(--text-muted); }
+.sort-select {
+  font-size: 13px; font-family: var(--font); padding: 4px 8px;
+  background: var(--bg-surface); border: 1px solid var(--border);
+  border-radius: var(--radius); color: var(--text-secondary);
+  cursor: pointer; outline: none;
 }
-
-.stat-text {
-  margin-left: auto;
-  font-size: 13px;
-  color: var(--text-muted);
-}
+.sort-select:focus { border-color: var(--accent); }
 
 /* ── Card Grid ─────────────────────────────────────────────── */
-.grid-section {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 24px;
-}
-
+.grid-section { max-width: 1280px; margin: 0 auto; padding: 24px; }
 .card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 16px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px;
 }
 
 /* ── Card ──────────────────────────────────────────────────── */
 .card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 20px;
-  cursor: pointer;
-  transition: all var(--transition);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  background: var(--bg-surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 20px; cursor: pointer;
+  transition: all var(--transition); display: flex; flex-direction: column; gap: 12px;
 }
-
 .card:hover {
   border-color: var(--accent);
   box-shadow: var(--shadow), 0 0 0 1px var(--accent-glow);
   transform: translateY(-2px);
 }
-
-.card-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
+.card-header { display: flex; align-items: flex-start; gap: 12px; }
 .card-icon {
-  width: 48px;
-  height: 48px;
-  background: var(--bg-elevated);
-  border-radius: var(--radius);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  flex-shrink: 0;
+  width: 48px; height: 48px; background: var(--bg-elevated);
+  border-radius: var(--radius); display: flex; align-items: center;
+  justify-content: center; font-size: 22px; flex-shrink: 0;
   border: 1px solid var(--border);
 }
-
-.card-title-group {
-  flex: 1;
-  min-width: 0;
-}
-
-.card-name {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text-primary);
-  line-height: 1.3;
-}
-
-.card-provider {
-  font-size: 13px;
-  color: var(--text-secondary);
-}
-
+.card-title-group { flex: 1; min-width: 0; }
+.card-name { font-size: 16px; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+.card-provider { font-size: 13px; color: var(--text-secondary); }
 .card-desc {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  font-size: 14px; color: var(--text-secondary); line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
 }
+.card-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: auto; }
 
-.card-meta {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: auto;
+/* ── Stars on cards ────────────────────────────────────────── */
+.star-count {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 12px; color: var(--star); font-weight: 600;
 }
+.star-count .star-icon { font-size: 13px; }
 
 /* ── Card Contributors Row ─────────────────────────────────── */
-.card-contributors {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.avatar-stack {
-  display: flex;
-  align-items: center;
-}
-
+.card-contributors { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.avatar-stack { display: flex; align-items: center; }
 .avatar-stack .avatar {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px solid var(--bg-surface);
-  margin-left: -6px;
-  object-fit: cover;
-  background: var(--bg-elevated);
+  width: 24px; height: 24px; border-radius: 50%;
+  border: 2px solid var(--bg-surface); margin-left: -6px;
+  object-fit: cover; background: var(--bg-elevated); cursor: pointer;
 }
-
 .avatar-stack .avatar:first-child { margin-left: 0; }
-
 .avatar-fallback {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px solid var(--bg-surface);
-  margin-left: -6px;
-  background: var(--accent-dim);
-  color: #fff;
-  font-size: 10px;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  width: 24px; height: 24px; border-radius: 50%;
+  border: 2px solid var(--bg-surface); margin-left: -6px;
+  background: var(--accent-dim); color: #fff; font-size: 10px;
+  font-weight: 700; display: inline-flex; align-items: center;
+  justify-content: center; flex-shrink: 0; cursor: pointer;
 }
-
 .avatar-fallback:first-child { margin-left: 0; }
-
-.card-contributors .contrib-text {
-  font-size: 12px;
-  color: var(--text-muted);
-}
+.card-contributors .contrib-text { font-size: 12px; color: var(--text-muted); }
 
 .badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 3px 8px;
-  border-radius: 4px;
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.5px; padding: 3px 8px; border-radius: 4px;
 }
-
-.badge-verified {
-  background: rgba(63,185,80,0.15);
-  color: var(--green);
-  border: 1px solid rgba(63,185,80,0.3);
-}
-
-.badge-community {
-  background: rgba(88,166,255,0.15);
-  color: var(--blue);
-  border: 1px solid rgba(88,166,255,0.3);
-}
-
-.badge-type {
-  background: var(--bg-elevated);
-  color: var(--text-secondary);
-  border: 1px solid var(--border);
-}
-
-.card-version {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-}
-
-.card-cats {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
+.badge-verified { background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid rgba(63,185,80,0.3); }
+.badge-community { background: rgba(88,166,255,0.15); color: var(--blue); border: 1px solid rgba(88,166,255,0.3); }
+.badge-type { background: var(--bg-elevated); color: var(--text-secondary); border: 1px solid var(--border); }
+.card-version { font-size: 12px; color: var(--text-muted); font-family: var(--font-mono); }
+.card-cats { display: flex; gap: 6px; flex-wrap: wrap; }
 .cat-tag {
-  font-size: 11px;
-  padding: 2px 8px;
-  background: var(--bg-elevated);
-  border-radius: 10px;
-  color: var(--text-muted);
-  border: 1px solid var(--border);
+  font-size: 11px; padding: 2px 8px; background: var(--bg-elevated);
+  border-radius: 10px; color: var(--text-muted); border: 1px solid var(--border);
 }
 
 /* ── Detail Modal ──────────────────────────────────────────── */
 .modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(4px);
-  z-index: 200;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 60px 24px;
-  overflow-y: auto;
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px); z-index: 200;
+  justify-content: center; align-items: flex-start;
+  padding: 60px 24px; overflow-y: auto;
 }
-
 .modal-overlay.open { display: flex; }
-
 .modal {
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  max-width: 720px;
-  width: 100%;
-  box-shadow: var(--shadow-lg);
-  animation: modalIn 200ms ease;
+  background: var(--bg-surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); max-width: 720px; width: 100%;
+  box-shadow: var(--shadow-lg); animation: modalIn 200ms ease;
 }
-
 @keyframes modalIn {
   from { opacity: 0; transform: translateY(20px) scale(0.97); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
-
-.modal-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 24px 24px 0;
-}
-
+.modal-header { display: flex; align-items: flex-start; gap: 16px; padding: 24px 24px 0; }
 .modal-icon {
-  width: 64px;
-  height: 64px;
-  background: var(--bg-elevated);
-  border-radius: var(--radius);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  flex-shrink: 0;
+  width: 64px; height: 64px; background: var(--bg-elevated);
+  border-radius: var(--radius); display: flex; align-items: center;
+  justify-content: center; font-size: 30px; flex-shrink: 0;
   border: 1px solid var(--border);
 }
-
 .modal-title-group { flex: 1; }
-
-.modal-name {
-  font-size: 22px;
-  font-weight: 700;
+.modal-name { font-size: 22px; font-weight: 700; }
+.modal-author { font-size: 14px; color: var(--text-secondary); margin-top: 2px; }
+.modal-stars {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 14px; color: var(--star); font-weight: 600; margin-top: 4px;
 }
-
-.modal-author {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin-top: 2px;
-}
-
+.modal-stars a { color: var(--star); text-decoration: none; }
+.modal-stars a:hover { text-decoration: underline; }
 .modal-close {
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  font-size: 24px;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-  line-height: 1;
-  transition: all var(--transition);
+  background: none; border: none; color: var(--text-muted);
+  font-size: 24px; cursor: pointer; padding: 4px 8px;
+  border-radius: 4px; line-height: 1; transition: all var(--transition);
 }
-
 .modal-close:hover { color: var(--text-primary); background: var(--bg-hover); }
 
 /* ── Modal Tabs ────────────────────────────────────────────── */
-.modal-tabs {
-  display: flex;
-  gap: 0;
-  padding: 16px 24px 0;
-  border-bottom: 1px solid var(--border);
-}
-
+.modal-tabs { display: flex; gap: 0; padding: 16px 24px 0; border-bottom: 1px solid var(--border); }
 .modal-tab {
-  padding: 8px 16px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-muted);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: all var(--transition);
-  background: none;
-  border-top: none;
-  border-left: none;
-  border-right: none;
+  padding: 8px 16px; font-size: 13px; font-weight: 500;
+  color: var(--text-muted); cursor: pointer;
+  border-bottom: 2px solid transparent; transition: all var(--transition);
+  background: none; border-top: none; border-left: none; border-right: none;
   font-family: var(--font);
 }
-
 .modal-tab:hover { color: var(--text-secondary); }
-
-.modal-tab.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
-}
-
-.modal-tab-panel {
-  display: none;
-  padding: 20px 24px 24px;
-}
-
+.modal-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.modal-tab-panel { display: none; padding: 20px 24px 24px; }
 .modal-tab-panel.active { display: block; }
 
-/* ── Modal Body (Details tab) ──────────────────────────────── */
-.modal-desc {
-  font-size: 15px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 20px;
-}
-
-.modal-badges {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
-.detail-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
+/* ── Modal Body ────────────────────────────────────────────── */
+.modal-desc { font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px; }
+.modal-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
 .detail-item label {
-  display: block;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--text-muted);
-  margin-bottom: 4px;
+  display: block; font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--text-muted); margin-bottom: 4px;
 }
-
-.detail-item span,
-.detail-item a {
-  font-size: 14px;
-  color: var(--text-primary);
-}
-
+.detail-item span, .detail-item a { font-size: 14px; color: var(--text-primary); }
 .detail-item code {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  background: var(--bg-elevated);
-  padding: 2px 6px;
-  border-radius: 4px;
-  border: 1px solid var(--border);
+  font-family: var(--font-mono); font-size: 13px;
+  background: var(--bg-elevated); padding: 2px 6px;
+  border-radius: 4px; border: 1px solid var(--border);
 }
-
 .filters-section h3 {
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--text-muted);
-  margin-bottom: 8px;
+  font-size: 13px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 8px;
 }
-
-.filter-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 20px;
-}
-
+.filter-list { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
 .filter-tag {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  padding: 4px 10px;
-  background: var(--accent-glow);
-  border: 1px solid var(--accent-dim);
-  border-radius: 6px;
-  color: var(--accent);
+  font-family: var(--font-mono); font-size: 13px; padding: 4px 10px;
+  background: var(--accent-glow); border: 1px solid var(--accent-dim);
+  border-radius: 6px; color: var(--accent);
 }
-
 .install-section {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 16px;
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px;
 }
-
 .install-section h3 {
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--text-muted);
-  margin-bottom: 10px;
+  font-size: 13px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 10px;
 }
-
-.install-cmd {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
+.install-cmd { display: flex; align-items: center; gap: 8px; }
 .install-cmd code {
-  flex: 1;
-  font-family: var(--font-mono);
-  font-size: 14px;
-  color: var(--green);
-  background: var(--bg-base);
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  user-select: all;
+  flex: 1; font-family: var(--font-mono); font-size: 14px;
+  color: var(--green); background: var(--bg-base);
+  padding: 10px 14px; border-radius: 6px;
+  border: 1px solid var(--border); user-select: all;
 }
-
 .install-cmd button {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background var(--transition);
+  background: var(--accent); color: #fff; border: none;
+  padding: 10px 16px; border-radius: 6px; font-size: 13px;
+  font-weight: 600; cursor: pointer; transition: background var(--transition);
   white-space: nowrap;
 }
-
 .install-cmd button:hover { background: var(--accent-dim); }
 
 /* ── Contributors Tab ──────────────────────────────────────── */
 .contributors-panel h3 {
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--text-muted);
-  margin-bottom: 12px;
+  font-size: 13px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 12px;
 }
-
-.contributor-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-
+.contributor-list { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
 .contributor-card {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  min-width: 200px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; background: var(--bg-elevated);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  min-width: 200px; cursor: pointer; transition: all var(--transition);
 }
-
+.contributor-card:hover { border-color: var(--accent); background: var(--bg-hover); }
 .contributor-card .avatar-lg {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: var(--bg-hover);
-  flex-shrink: 0;
+  width: 36px; height: 36px; border-radius: 50%;
+  object-fit: cover; background: var(--bg-hover); flex-shrink: 0;
 }
-
 .contributor-card .avatar-lg-fallback {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--accent-dim);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--accent-dim); color: #fff; font-size: 14px;
+  font-weight: 700; display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0;
 }
-
 .contributor-card .contrib-info { flex: 1; min-width: 0; }
-
 .contributor-card .contrib-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-primary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 14px; font-weight: 600; color: var(--text-primary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-
-.contributor-card .contrib-role {
-  font-size: 11px;
-  color: var(--text-muted);
-}
-
+.contributor-card .contrib-role { font-size: 11px; color: var(--text-muted); }
 .contributor-card .op-badge {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 2px 6px;
-  border-radius: 3px;
-  background: rgba(255,171,0,0.15);
-  color: var(--amber);
-  border: 1px solid rgba(255,171,0,0.3);
-  flex-shrink: 0;
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.5px; padding: 2px 6px; border-radius: 3px;
+  background: rgba(255,171,0,0.15); color: var(--amber);
+  border: 1px solid rgba(255,171,0,0.3); flex-shrink: 0;
 }
 
 /* ── Commit Timeline ───────────────────────────────────────── */
-.timeline {
-  position: relative;
-  padding-left: 24px;
-}
-
+.timeline { position: relative; padding-left: 24px; }
 .timeline::before {
-  content: '';
-  position: absolute;
-  left: 11px;
-  top: 4px;
-  bottom: 4px;
-  width: 2px;
-  background: var(--border);
-  border-radius: 1px;
+  content: ''; position: absolute; left: 11px; top: 4px; bottom: 4px;
+  width: 2px; background: var(--border); border-radius: 1px;
 }
-
 .timeline-item {
-  position: relative;
-  padding-bottom: 16px;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
+  position: relative; padding-bottom: 16px;
+  display: flex; gap: 12px; align-items: flex-start;
 }
-
 .timeline-item:last-child { padding-bottom: 0; }
-
 .timeline-dot {
-  position: absolute;
-  left: -19px;
-  top: 6px;
-  width: 8px;
-  height: 8px;
-  background: var(--accent);
-  border-radius: 50%;
-  border: 2px solid var(--bg-surface);
-  z-index: 1;
+  position: absolute; left: -19px; top: 6px; width: 8px; height: 8px;
+  background: var(--accent); border-radius: 50%;
+  border: 2px solid var(--bg-surface); z-index: 1;
 }
-
-.timeline-item:last-child .timeline-dot {
-  background: var(--amber);
-}
-
+.timeline-item:last-child .timeline-dot { background: var(--amber); }
 .timeline-avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: var(--bg-elevated);
-  flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 50%;
+  object-fit: cover; background: var(--bg-elevated); flex-shrink: 0;
+  cursor: pointer;
 }
-
 .timeline-avatar-fallback {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--accent-dim);
-  color: #fff;
-  font-size: 10px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accent-dim); color: #fff; font-size: 10px;
+  font-weight: 700; display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0; cursor: pointer;
 }
-
 .timeline-content { flex: 1; min-width: 0; }
-
-.timeline-msg {
-  font-size: 13px;
-  color: var(--text-primary);
-  line-height: 1.4;
-}
-
+.timeline-msg { font-size: 13px; color: var(--text-primary); line-height: 1.4; }
 .timeline-meta {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 2px;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  flex-wrap: wrap;
+  font-size: 12px; color: var(--text-muted); margin-top: 2px;
+  display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
 }
-
-.timeline-meta a {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--blue);
+.timeline-meta a { font-family: var(--font-mono); font-size: 11px; color: var(--blue); }
+.timeline-meta .author-name {
+  font-weight: 500; color: var(--text-secondary); cursor: pointer;
 }
-
-.timeline-meta .author-name { font-weight: 500; color: var(--text-secondary); }
-
-.no-history {
-  text-align: center;
-  padding: 40px 20px;
-  color: var(--text-muted);
-}
-
+.timeline-meta .author-name:hover { color: var(--accent); text-decoration: underline; }
+.no-history { text-align: center; padding: 40px 20px; color: var(--text-muted); }
 .no-history .no-icon { font-size: 32px; margin-bottom: 8px; }
 .no-history .no-text { font-size: 14px; }
 
-/* ── Empty state ───────────────────────────────────────────── */
-.empty-state {
-  text-align: center;
-  padding: 80px 24px;
+/* ── Profile Overlay ───────────────────────────────────────── */
+.profile-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px); z-index: 300;
+  justify-content: center; align-items: flex-start;
+  padding: 60px 24px; overflow-y: auto;
+}
+.profile-overlay.open { display: flex; }
+.profile-modal {
+  background: var(--bg-surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); max-width: 640px; width: 100%;
+  box-shadow: var(--shadow-lg); animation: modalIn 200ms ease;
+  padding: 24px;
+}
+.profile-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+.profile-avatar {
+  width: 64px; height: 64px; border-radius: 50%;
+  object-fit: cover; background: var(--bg-elevated);
+}
+.profile-avatar-fallback {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--accent-dim); color: #fff; font-size: 24px;
+  font-weight: 700; display: flex; align-items: center;
+  justify-content: center;
+}
+.profile-info { flex: 1; }
+.profile-name { font-size: 20px; font-weight: 700; }
+.profile-email { font-size: 13px; color: var(--text-muted); }
+.profile-stats {
+  display: flex; gap: 20px; margin-top: 6px; font-size: 13px; color: var(--text-secondary);
+}
+.profile-stats strong { color: var(--text-primary); }
+.profile-close {
+  background: none; border: none; color: var(--text-muted);
+  font-size: 24px; cursor: pointer; padding: 4px 8px;
+  border-radius: 4px; line-height: 1; transition: all var(--transition);
+  align-self: flex-start;
+}
+.profile-close:hover { color: var(--text-primary); background: var(--bg-hover); }
+.profile-section-title {
+  font-size: 13px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 12px;
+}
+.profile-component {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px; background: var(--bg-elevated);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  margin-bottom: 8px; cursor: pointer; transition: all var(--transition);
+}
+.profile-component:hover { border-color: var(--accent); background: var(--bg-hover); }
+.profile-comp-icon { font-size: 24px; flex-shrink: 0; }
+.profile-comp-info { flex: 1; min-width: 0; }
+.profile-comp-name { font-size: 14px; font-weight: 600; }
+.profile-comp-desc {
+  font-size: 12px; color: var(--text-muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.profile-comp-meta { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+.profile-comp-role {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  padding: 2px 6px; border-radius: 3px;
+}
+.profile-comp-role.op {
+  background: rgba(255,171,0,0.15); color: var(--amber); border: 1px solid rgba(255,171,0,0.3);
+}
+.profile-comp-role.contributor {
+  background: var(--accent-glow); color: var(--accent); border: 1px solid var(--accent-dim);
 }
 
+/* ── Empty / Loading ───────────────────────────────────────── */
+.empty-state { text-align: center; padding: 80px 24px; }
 .empty-icon { font-size: 48px; margin-bottom: 16px; }
 .empty-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
 .empty-desc { font-size: 14px; color: var(--text-muted); }
-
-/* ── Loading ───────────────────────────────────────────────── */
-.loading {
-  text-align: center;
-  padding: 80px 24px;
-  color: var(--text-muted);
-}
-
+.loading { text-align: center; padding: 80px 24px; color: var(--text-muted); }
 .spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid var(--border);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  margin: 0 auto 16px;
+  width: 40px; height: 40px; border: 3px solid var(--border);
+  border-top-color: var(--accent); border-radius: 50%;
+  animation: spin 0.8s linear infinite; margin: 0 auto 16px;
 }
-
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* ── Footer ────────────────────────────────────────────────── */
 .footer {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 32px 24px;
+  max-width: 1280px; margin: 0 auto; padding: 32px 24px;
   border-top: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 13px;
-  color: var(--text-muted);
-  flex-wrap: wrap;
-  gap: 12px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px; color: var(--text-muted); flex-wrap: wrap; gap: 12px;
 }
-
 .footer-links { display: flex; gap: 16px; }
 .footer a { color: var(--text-secondary); }
 .footer a:hover { color: var(--text-primary); }
@@ -868,14 +495,13 @@ a:hover { text-decoration: underline; }
   .logo em { display: none; }
   .card-grid { grid-template-columns: 1fr; }
   .detail-grid { grid-template-columns: 1fr; }
-  .modal-overlay { padding: 24px 12px; }
+  .modal-overlay, .profile-overlay { padding: 24px 12px; }
   .contributor-card { min-width: 160px; }
 }
   </style>
 </head>
 <body>
 
-  <!-- ── Header ──────────────────────────────────────────── -->
   <header class="header">
     <div class="header-inner">
       <a class="logo" href=".">
@@ -890,25 +516,16 @@ a:hover { text-decoration: underline; }
     </div>
   </header>
 
-  <!-- ── Search ──────────────────────────────────────────── -->
   <section class="search-section">
     <div class="search-wrap">
       <span class="search-icon">🔍</span>
-      <input
-        type="text"
-        class="search-input"
-        id="searchInput"
-        placeholder="Search components…"
-        autocomplete="off"
-        autofocus
-      >
+      <input type="text" class="search-input" id="searchInput"
+             placeholder="Search components or contributors…" autocomplete="off" autofocus>
     </div>
   </section>
 
-  <!-- ── Toolbar ─────────────────────────────────────────── -->
   <div class="toolbar" id="toolbar"></div>
 
-  <!-- ── Grid ────────────────────────────────────────────── -->
   <section class="grid-section" id="gridSection">
     <div class="loading" id="loading">
       <div class="spinner"></div>
@@ -917,7 +534,7 @@ a:hover { text-decoration: underline; }
     <div class="card-grid" id="cardGrid"></div>
   </section>
 
-  <!-- ── Detail Modal ────────────────────────────────────── -->
+  <!-- Detail Modal -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal" id="modal">
       <div class="modal-header">
@@ -925,17 +542,14 @@ a:hover { text-decoration: underline; }
         <div class="modal-title-group">
           <div class="modal-name" id="modalName"></div>
           <div class="modal-author" id="modalAuthor"></div>
+          <div class="modal-stars" id="modalStars"></div>
         </div>
         <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
       </div>
-
-      <!-- Tab bar -->
       <div class="modal-tabs">
         <button class="modal-tab active" data-tab="details">Details</button>
         <button class="modal-tab" data-tab="contributors">Contributors</button>
       </div>
-
-      <!-- Details tab -->
       <div class="modal-tab-panel active" id="panelDetails" data-tab="details">
         <p class="modal-desc" id="modalDesc"></p>
         <div class="modal-badges" id="modalBadges"></div>
@@ -949,15 +563,29 @@ a:hover { text-decoration: underline; }
           </div>
         </div>
       </div>
-
-      <!-- Contributors tab -->
       <div class="modal-tab-panel contributors-panel" id="panelContributors" data-tab="contributors">
         <div id="contributorsContent"></div>
       </div>
     </div>
   </div>
 
-  <!-- ── Footer ──────────────────────────────────────────── -->
+  <!-- Profile Overlay -->
+  <div class="profile-overlay" id="profileOverlay">
+    <div class="profile-modal" id="profileModal">
+      <div class="profile-header">
+        <div id="profileAvatar"></div>
+        <div class="profile-info">
+          <div class="profile-name" id="profileName"></div>
+          <div class="profile-email" id="profileEmail"></div>
+          <div class="profile-stats" id="profileStats"></div>
+        </div>
+        <button class="profile-close" id="profileClose" aria-label="Close">&times;</button>
+      </div>
+      <div class="profile-section-title">Components</div>
+      <div id="profileComponents"></div>
+    </div>
+  </div>
+
   <footer class="footer">
     <span>codeupipe marketplace — <a href="https://pypi.org/project/codeupipe/" target="_blank">pip install codeupipe</a></span>
     <div class="footer-links">
@@ -967,141 +595,174 @@ a:hover { text-decoration: underline; }
   </footer>
 
 <script>
-/* ================================================================
-   codeupipe Marketplace — Client-side SPA
-   Fetches index.json + contributors.json, renders cards with
-   contributor avatars, search, filter, detail modal with git
-   history timeline.
-   Zero dependencies.
-   ================================================================ */
-
 (function () {
   "use strict";
 
   // ── Config ──────────────────────────────────────────────
-  const INDEX_URL = "https://raw.githubusercontent.com/codeuchain/codeupipe-marketplace/main/index.json";
-  const INDEX_FALLBACK = "./index.json";
-  const CONTRIBUTORS_FALLBACK = "./contributors.json";
-  const REPO_URL = "https://github.com/codeuchain/codeupipe-marketplace";
+  var INDEX_URL = "https://raw.githubusercontent.com/codeuchain/codeupipe-marketplace/main/index.json";
+  var INDEX_FALLBACK = "./index.json";
+  var CONTRIBUTORS_FALLBACK = "./contributors.json";
+  var REPO_BASE = "https://github.com/codeuchain/codeupipe-marketplace";
 
-  // Provider → emoji mapping
-  const PROVIDER_ICONS = {
-    "google-ai": "🤖",
-    "stripe":    "💳",
-    "postgres":  "🐘",
-    "resend":    "✉️",
-    "redis":     "🔴",
-    "openai":    "🧠",
-    "slack":     "💬",
-    "github":    "🐙",
-    "aws":       "☁️",
-    "firebase":  "🔥",
+  var PROVIDER_ICONS = {
+    "google-ai": "🤖", "stripe": "💳", "postgres": "🐘", "resend": "✉️",
+    "redis": "🔴", "openai": "🧠", "slack": "💬", "github": "🐙",
+    "aws": "☁️", "firebase": "🔥"
   };
-
-  const DEFAULT_ICON = "📦";
+  var DEFAULT_ICON = "📦";
 
   // ── State ───────────────────────────────────────────────
-  let allComponents = [];
-  let contributorsData = {};
-  let activeTypeFilter = null;
-  let activeTrustFilter = null;
-  let searchQuery = "";
+  var allComponents = [];
+  var contributorsData = {};
+  var starsCache = {};       // "owner/repo" → star count
+  var activeTypeFilter = null;
+  var activeTrustFilter = null;
+  var searchQuery = "";
+  var sortMode = "name";     // "name" | "stars" | "newest"
 
   // ── DOM refs ────────────────────────────────────────────
-  const $searchInput  = document.getElementById("searchInput");
-  const $toolbar      = document.getElementById("toolbar");
-  const $loading      = document.getElementById("loading");
-  const $cardGrid     = document.getElementById("cardGrid");
-  const $modalOverlay = document.getElementById("modalOverlay");
+  var $searchInput  = document.getElementById("searchInput");
+  var $toolbar      = document.getElementById("toolbar");
+  var $loading      = document.getElementById("loading");
+  var $cardGrid     = document.getElementById("cardGrid");
+  var $modalOverlay = document.getElementById("modalOverlay");
+  var $profileOverlay = document.getElementById("profileOverlay");
 
   // ── Fetch helpers ───────────────────────────────────────
-  async function fetchJSON(fallback, remote) {
-    try {
-      let resp = await fetch(fallback);
-      if (!resp.ok && remote) resp = await fetch(remote);
-      if (!resp.ok) return null;
-      return await resp.json();
-    } catch {
-      if (remote) {
-        try {
-          const resp = await fetch(remote);
-          if (resp.ok) return await resp.json();
-        } catch { /* noop */ }
-      }
+  function fetchJSON(fallback, remote) {
+    return fetch(fallback).then(function(r) {
+      if (r.ok) return r.json();
+      if (remote) return fetch(remote).then(function(r2) { return r2.ok ? r2.json() : null; });
       return null;
-    }
-  }
-
-  // ── Helpers ─────────────────────────────────────────────
-  function iconFor(provider) {
-    return PROVIDER_ICONS[provider] || DEFAULT_ICON;
-  }
-
-  function initial(name) {
-    return (name || "?").charAt(0).toUpperCase();
-  }
-
-  function trustBadge(trust) {
-    const cls = trust === "verified" ? "badge-verified" : "badge-community";
-    const icon = trust === "verified" ? "✓" : "⬡";
-    return '<span class="badge ' + cls + '">' + icon + ' ' + trust + '</span>';
-  }
-
-  function typeBadge(type) {
-    return '<span class="badge badge-type">' + type + '</span>';
-  }
-
-  function relativeTime(dateStr) {
-    if (!dateStr) return "";
-    const now = Date.now();
-    const then = new Date(dateStr).getTime();
-    const diff = now - then;
-    const mins  = Math.floor(diff / 60000);
-    const hours = Math.floor(diff / 3600000);
-    const days  = Math.floor(diff / 86400000);
-    if (days > 365) return Math.floor(days / 365) + "y ago";
-    if (days > 30)  return Math.floor(days / 30) + "mo ago";
-    if (days > 0)   return days + "d ago";
-    if (hours > 0)  return hours + "h ago";
-    if (mins > 0)   return mins + "m ago";
-    return "just now";
-  }
-
-  function avatarHTML(url, name, cls) {
-    // Returns an <img> with onerror fallback to initials
-    const i = initial(name);
-    const fbCls = cls.replace("avatar", "avatar-fallback")
-                     .replace("-lg", "-lg-fallback");
-    return '<img class="' + cls + '" src="' + url + '" alt="' + name + '" ' +
-           'onerror="this.outerHTML=\'<span class=&quot;' + fbCls + '&quot;>' + i + '</span>\'">';
-  }
-
-  // ── Search matching ─────────────────────────────────────
-  function matchesSearch(comp, q) {
-    if (!q) return true;
-    const lower = q.toLowerCase();
-    const haystack = [
-      comp.name, comp.provider, comp.description, comp.author,
-      ...(comp.categories || []),
-      ...(comp.filters || []),
-    ].join(" ").toLowerCase();
-    return lower.split(/\s+/).every(function(word) { return haystack.includes(word); });
-  }
-
-  // ── Filter + render ─────────────────────────────────────
-  function getFiltered() {
-    return allComponents.filter(function(c) {
-      if (activeTypeFilter && c.type !== activeTypeFilter) return false;
-      if (activeTrustFilter && c.trust !== activeTrustFilter) return false;
-      if (!matchesSearch(c, searchQuery)) return false;
-      return true;
+    }).catch(function() {
+      if (remote) return fetch(remote).then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; });
+      return null;
     });
   }
 
-  function render() {
-    renderChips();
-    renderCards(getFiltered());
+  // ── GitHub Stars ────────────────────────────────────────
+  function parseRepoSlug(repoUrl) {
+    // "https://github.com/codeuchain/codeupipe-stripe" → "codeuchain/codeupipe-stripe"
+    if (!repoUrl) return null;
+    var m = repoUrl.match(/github\.com\/([^\/]+\/[^\/]+)/);
+    return m ? m[1].replace(/\.git$/, "") : null;
   }
+
+  function fetchStars(slug) {
+    if (!slug) return Promise.resolve(null);
+    if (slug in starsCache) return Promise.resolve(starsCache[slug]);
+    return fetch("https://api.github.com/repos/" + slug, { headers: { Accept: "application/vnd.github.v3+json" } })
+      .then(function(r) { return r.ok ? r.json() : null; })
+      .then(function(data) {
+        if (data && typeof data.stargazers_count === "number") {
+          starsCache[slug] = data.stargazers_count;
+          return data.stargazers_count;
+        }
+        return null;
+      })
+      .catch(function() { return null; });
+  }
+
+  function fetchAllStars() {
+    var slugs = [];
+    allComponents.forEach(function(c) {
+      var s = parseRepoSlug(c.repo);
+      if (s && slugs.indexOf(s) === -1) slugs.push(s);
+    });
+    // Fetch sequentially to stay within rate limits
+    return slugs.reduce(function(chain, slug) {
+      return chain.then(function() { return fetchStars(slug); });
+    }, Promise.resolve());
+  }
+
+  function getStars(c) {
+    var slug = parseRepoSlug(c.repo);
+    return slug ? (starsCache[slug] || 0) : 0;
+  }
+
+  // ── Helpers ─────────────────────────────────────────────
+  function iconFor(p) { return PROVIDER_ICONS[p] || DEFAULT_ICON; }
+  function initial(n) { return (n || "?").charAt(0).toUpperCase(); }
+
+  function trustBadge(t) {
+    var cls = t === "verified" ? "badge-verified" : "badge-community";
+    var ic = t === "verified" ? "✓" : "⬡";
+    return '<span class="badge ' + cls + '">' + ic + " " + t + "</span>";
+  }
+  function typeBadge(t) { return '<span class="badge badge-type">' + t + "</span>"; }
+
+  function relativeTime(d) {
+    if (!d) return "";
+    var diff = Date.now() - new Date(d).getTime();
+    var days = Math.floor(diff / 86400000);
+    if (days > 365) return Math.floor(days / 365) + "y ago";
+    if (days > 30)  return Math.floor(days / 30) + "mo ago";
+    if (days > 0)   return days + "d ago";
+    var hrs = Math.floor(diff / 3600000);
+    if (hrs > 0) return hrs + "h ago";
+    var mins = Math.floor(diff / 60000);
+    return mins > 0 ? mins + "m ago" : "just now";
+  }
+
+  function escapeHTML(s) {
+    var d = document.createElement("div");
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function avatarImg(url, name, cls) {
+    var i = initial(name);
+    var fbCls = cls.indexOf("-lg") >= 0
+      ? cls.replace("avatar-lg", "avatar-lg-fallback")
+      : cls.replace("avatar", "avatar-fallback");
+    if (cls === "profile-avatar") fbCls = "profile-avatar-fallback";
+    if (cls === "timeline-avatar") fbCls = "timeline-avatar-fallback";
+    return '<img class="' + cls + '" src="' + url + '" alt="' + escapeHTML(name) + '" ' +
+      'onerror="this.outerHTML=\'<span class=&quot;' + fbCls + '&quot;>' + i + '</span>\'">';
+  }
+
+  function starsHTML(count) {
+    if (count === null || count === undefined) return "";
+    return '<span class="star-count"><span class="star-icon">⭐</span> ' + count + "</span>";
+  }
+
+  // ── Search ──────────────────────────────────────────────
+  function matchesSearch(c, q) {
+    if (!q) return true;
+    var lower = q.toLowerCase();
+    var haystack = [c.name, c.provider, c.description, c.author].concat(c.categories || []).concat(c.filters || []);
+    // Also search contributor names
+    var cd = contributorsData[c.name];
+    if (cd && cd.contributors) {
+      cd.contributors.forEach(function(p) { haystack.push(p.name); });
+    }
+    haystack = haystack.join(" ").toLowerCase();
+    return lower.split(/\s+/).every(function(w) { return haystack.includes(w); });
+  }
+
+  // ── Filter + Sort ───────────────────────────────────────
+  function getFiltered() {
+    var list = allComponents.filter(function(c) {
+      if (activeTypeFilter && c.type !== activeTypeFilter) return false;
+      if (activeTrustFilter && c.trust !== activeTrustFilter) return false;
+      return matchesSearch(c, searchQuery);
+    });
+    if (sortMode === "stars") {
+      list.sort(function(a, b) { return getStars(b) - getStars(a); });
+    } else if (sortMode === "newest") {
+      list.sort(function(a, b) {
+        var da = contributorsData[a.name], db = contributorsData[b.name];
+        var ta = da && da.created_at ? new Date(da.created_at).getTime() : 0;
+        var tb = db && db.created_at ? new Date(db.created_at).getTime() : 0;
+        return tb - ta;
+      });
+    } else {
+      list.sort(function(a, b) { return a.name.localeCompare(b.name); });
+    }
+    return list;
+  }
+
+  function render() { renderChips(); renderCards(getFiltered()); }
 
   // ── Chips ───────────────────────────────────────────────
   function renderChips() {
@@ -1110,99 +771,112 @@ a:hover { text-decoration: underline; }
       types[c.type] = (types[c.type] || 0) + 1;
       trusts[c.trust] = (trusts[c.trust] || 0) + 1;
     });
-
     var html = "";
-
-    Object.keys(types).sort().forEach(function(type) {
-      var active = activeTypeFilter === type ? " active" : "";
-      html += '<span class="chip' + active + '" data-filter="type" data-value="' + type + '">' +
-              type + ' <span class="count">' + types[type] + '</span></span>';
+    Object.keys(types).sort().forEach(function(t) {
+      var a = activeTypeFilter === t ? " active" : "";
+      html += '<span class="chip' + a + '" data-filter="type" data-value="' + t + '">' +
+        t + ' <span class="count">' + types[t] + '</span></span>';
     });
-
     if (Object.keys(types).length && Object.keys(trusts).length) {
-      html += '<span style="color:var(--border); padding: 0 4px;">│</span>';
+      html += '<span style="color:var(--border);padding:0 4px">│</span>';
     }
-
-    Object.keys(trusts).sort().forEach(function(trust) {
-      var active = activeTrustFilter === trust ? " active" : "";
-      var icon = trust === "verified" ? "✓ " : "";
-      html += '<span class="chip' + active + '" data-filter="trust" data-value="' + trust + '">' +
-              icon + trust + ' <span class="count">' + trusts[trust] + '</span></span>';
+    Object.keys(trusts).sort().forEach(function(t) {
+      var a = activeTrustFilter === t ? " active" : "";
+      var ic = t === "verified" ? "✓ " : "";
+      html += '<span class="chip' + a + '" data-filter="trust" data-value="' + t + '">' +
+        ic + t + ' <span class="count">' + trusts[t] + '</span></span>';
     });
-
     var filtered = getFiltered();
-    html += '<span class="stat-text">' + filtered.length + ' of ' + allComponents.length + ' components</span>';
-
+    html += '<span class="toolbar-right">' +
+      '<span class="stat-text">' + filtered.length + ' of ' + allComponents.length + ' components</span>' +
+      '<select class="sort-select" id="sortSelect">' +
+      '<option value="name"' + (sortMode === "name" ? " selected" : "") + '>Sort: A–Z</option>' +
+      '<option value="stars"' + (sortMode === "stars" ? " selected" : "") + '>Sort: ⭐ Stars</option>' +
+      '<option value="newest"' + (sortMode === "newest" ? " selected" : "") + '>Sort: Newest</option>' +
+      '</select></span>';
     $toolbar.innerHTML = html;
 
     $toolbar.querySelectorAll(".chip").forEach(function(chip) {
       chip.addEventListener("click", function() {
-        var ft = chip.dataset.filter;
-        var val = chip.dataset.value;
+        var ft = chip.dataset.filter, val = chip.dataset.value;
         if (ft === "type") activeTypeFilter = activeTypeFilter === val ? null : val;
         else activeTrustFilter = activeTrustFilter === val ? null : val;
         render();
       });
     });
+    var sel = document.getElementById("sortSelect");
+    if (sel) sel.addEventListener("change", function() { sortMode = sel.value; render(); });
   }
 
   // ── Cards ───────────────────────────────────────────────
   function renderCards(filtered) {
     if (!filtered.length) {
       $cardGrid.innerHTML =
-        '<div class="empty-state" style="grid-column: 1 / -1;">' +
+        '<div class="empty-state" style="grid-column:1/-1">' +
         '<div class="empty-icon">🔍</div>' +
         '<div class="empty-title">No components found</div>' +
         '<div class="empty-desc">Try a different search or clear your filters.</div></div>';
       return;
     }
-
     $cardGrid.innerHTML = filtered.map(function(c) {
-      var contribData = contributorsData[c.name];
+      var cd = contributorsData[c.name];
       var contribHTML = "";
-
-      if (contribData && contribData.contributors && contribData.contributors.length) {
-        var avatars = contribData.contributors.slice(0, 4).map(function(p) {
-          return avatarHTML(p.avatar, p.name, "avatar");
+      if (cd && cd.contributors && cd.contributors.length) {
+        var avatars = cd.contributors.slice(0, 4).map(function(p) {
+          return avatarImg(p.avatar, p.name, "avatar");
         }).join("");
-        var extra = contribData.contributors.length > 4
-          ? ' <span class="contrib-text">+' + (contribData.contributors.length - 4) + '</span>'
-          : "";
-        var countLabel = contribData.contributors.length === 1 ? "1 contributor" : contribData.contributors.length + " contributors";
-        contribHTML =
-          '<div class="card-contributors">' +
-          '<div class="avatar-stack">' + avatars + '</div>' +
-          extra +
-          '<span class="contrib-text">' + countLabel + '</span></div>';
+        var extra = cd.contributors.length > 4
+          ? ' <span class="contrib-text">+' + (cd.contributors.length - 4) + "</span>" : "";
+        var label = cd.contributors.length === 1 ? "1 contributor" : cd.contributors.length + " contributors";
+        contribHTML = '<div class="card-contributors"><div class="avatar-stack">' +
+          avatars + '</div>' + extra + '<span class="contrib-text">' + label + '</span></div>';
       }
-
+      var stars = getStars(c);
       return '<article class="card" data-name="' + c.name + '">' +
-        '<div class="card-header">' +
-        '<div class="card-icon">' + iconFor(c.provider) + '</div>' +
-        '<div class="card-title-group">' +
-        '<div class="card-name">' + c.name + '</div>' +
+        '<div class="card-header"><div class="card-icon">' + iconFor(c.provider) + '</div>' +
+        '<div class="card-title-group"><div class="card-name">' + c.name + '</div>' +
         '<div class="card-provider">' + c.author + '</div></div></div>' +
         '<p class="card-desc">' + c.description + '</p>' +
         '<div class="card-cats">' +
-        (c.categories || []).map(function(cat) {
-          return '<span class="cat-tag">' + cat + '</span>';
-        }).join("") + '</div>' +
-        contribHTML +
-        '<div class="card-meta">' +
-        trustBadge(c.trust) + typeBadge(c.type) +
-        '<span class="card-version">v' + c.latest + '</span></div>' +
-        '</article>';
+        (c.categories || []).map(function(cat) { return '<span class="cat-tag">' + cat + "</span>"; }).join("") +
+        '</div>' + contribHTML +
+        '<div class="card-meta">' + trustBadge(c.trust) + typeBadge(c.type) +
+        '<span class="card-version">v' + c.latest + '</span>' +
+        (stars > 0 ? starsHTML(stars) : "") +
+        '</div></article>';
     }).join("");
 
     $cardGrid.querySelectorAll(".card").forEach(function(card) {
-      card.addEventListener("click", function() {
+      card.addEventListener("click", function(e) {
+        // If clicking an avatar in the stack, open profile instead
+        if (e.target.closest(".avatar-stack")) {
+          e.stopPropagation();
+          return;
+        }
         var comp = allComponents.find(function(c) { return c.name === card.dataset.name; });
         if (comp) openModal(comp);
       });
     });
+
+    // Bind avatar clicks on cards to open profiles
+    $cardGrid.querySelectorAll(".avatar-stack .avatar, .avatar-stack .avatar-fallback").forEach(function(av) {
+      av.addEventListener("click", function(e) {
+        e.stopPropagation();
+        var name = av.alt || av.textContent;
+        var cardEl = av.closest(".card");
+        var compName = cardEl ? cardEl.dataset.name : null;
+        if (compName) {
+          var cd = contributorsData[compName];
+          if (cd && cd.contributors) {
+            var person = cd.contributors.find(function(p) { return p.name === name; });
+            if (person) { openProfile(person); return; }
+          }
+        }
+      });
+    });
   }
 
-  // ── Modal Tabs ──────────────────────────────────────────
+  // ── Tabs ────────────────────────────────────────────────
   function initTabs() {
     document.querySelectorAll(".modal-tab").forEach(function(tab) {
       tab.addEventListener("click", function() {
@@ -1216,7 +890,7 @@ a:hover { text-decoration: underline; }
     });
   }
 
-  // ── Modal ───────────────────────────────────────────────
+  // ── Detail Modal ────────────────────────────────────────
   function openModal(c) {
     // Reset to Details tab
     document.querySelectorAll(".modal-tab").forEach(function(t) { t.classList.remove("active"); });
@@ -1229,10 +903,18 @@ a:hover { text-decoration: underline; }
     document.getElementById("modalAuthor").textContent = "by " + c.author;
     document.getElementById("modalDesc").textContent = c.description;
 
-    // Badges
+    // Stars in header
+    var slug = parseRepoSlug(c.repo);
+    var starsEl = document.getElementById("modalStars");
+    var starVal = slug ? starsCache[slug] : null;
+    if (starVal !== null && starVal !== undefined) {
+      starsEl.innerHTML = '⭐ <a href="' + c.repo + '/stargazers" target="_blank">' + starVal + ' stars on GitHub</a>';
+    } else {
+      starsEl.innerHTML = '<a href="' + c.repo + '/stargazers" target="_blank" style="color:var(--text-muted);font-size:12px">⭐ Star on GitHub</a>';
+    }
+
     document.getElementById("modalBadges").innerHTML = trustBadge(c.trust) + typeBadge(c.type);
 
-    // Detail grid
     document.getElementById("modalDetails").innerHTML =
       '<div class="detail-item"><label>Version</label><span><code>' + c.latest + '</code></span></div>' +
       '<div class="detail-item"><label>Min codeupipe</label><span><code>≥ ' + c.min_codeupipe + '</code></span></div>' +
@@ -1243,20 +925,16 @@ a:hover { text-decoration: underline; }
       '<a href="' + c.repo + '" target="_blank">' + c.repo.replace("https://github.com/", "") + '</a></div>' +
       '<div class="detail-item"><label>Categories</label><span>' + (c.categories || []).join(", ") + '</span></div>';
 
-    // Filters
     var filtersEl = document.getElementById("modalFilters");
     if (c.filters && c.filters.length) {
       filtersEl.innerHTML = '<h3>Exported Filters</h3><div class="filter-list">' +
-        c.filters.map(function(f) { return '<span class="filter-tag">' + f + '</span>'; }).join("") +
+        c.filters.map(function(f) { return '<span class="filter-tag">' + f + "</span>"; }).join("") +
         '</div>';
-    } else {
-      filtersEl.innerHTML = "";
-    }
+    } else { filtersEl.innerHTML = ""; }
 
-    // Install command
-    var installCode = "pip install " + c.pypi;
+    // ── Install command — cup marketplace install ──
+    var installCode = "cup marketplace install " + c.name;
     document.getElementById("installCmd").textContent = installCode;
-
     var copyBtn = document.getElementById("copyBtn");
     copyBtn.textContent = "Copy";
     copyBtn.onclick = function() {
@@ -1266,9 +944,7 @@ a:hover { text-decoration: underline; }
       });
     };
 
-    // ── Contributors tab content ──────────────────────────
     renderContributorsTab(c);
-
     $modalOverlay.classList.add("open");
     document.body.style.overflow = "hidden";
   }
@@ -1276,75 +952,81 @@ a:hover { text-decoration: underline; }
   function renderContributorsTab(c) {
     var el = document.getElementById("contributorsContent");
     var data = contributorsData[c.name];
-
     if (!data || !data.commits || !data.commits.length) {
-      el.innerHTML =
-        '<div class="no-history">' +
-        '<div class="no-icon">📋</div>' +
+      el.innerHTML = '<div class="no-history"><div class="no-icon">📋</div>' +
         '<div class="no-text">No git history available for this component.</div></div>';
       return;
     }
-
-    var html = "";
-
-    // ── Contributors section ──────────────────────────────
-    html += '<h3>Contributors</h3><div class="contributor-list">';
-
-    data.contributors.forEach(function(person, idx) {
+    var html = '<h3>Contributors</h3><div class="contributor-list">';
+    data.contributors.forEach(function(person) {
       var isOP = data.created_by && person.email === data.created_by.email;
       var roleLabel = isOP ? "Original author" : "Contributor";
       var opBadge = isOP ? '<span class="op-badge">OP</span>' : "";
-
-      html +=
-        '<div class="contributor-card">' +
-        avatarHTML(person.avatar, person.name, "avatar-lg") +
-        '<div class="contrib-info">' +
-        '<div class="contrib-name">' + person.name + '</div>' +
-        '<div class="contrib-role">' + roleLabel + '</div></div>' +
-        opBadge + '</div>';
+      html += '<div class="contributor-card" data-email="' + escapeHTML(person.email) + '">' +
+        avatarImg(person.avatar, person.name, "avatar-lg") +
+        '<div class="contrib-info"><div class="contrib-name">' + escapeHTML(person.name) + '</div>' +
+        '<div class="contrib-role">' + roleLabel + '</div></div>' + opBadge + '</div>';
     });
-
-    html += '</div>';
-
-    // ── Commit timeline ───────────────────────────────────
-    html += '<h3>Commit History</h3><div class="timeline">';
-
-    data.commits.forEach(function(commit, idx) {
-      var isLast = idx === data.commits.length - 1;
-      var commitUrl = REPO_URL + "/commit/" + commit.sha_full;
-      var manifestPath = "components/" + c.name + "/manifest.json";
-      var blameUrl = REPO_URL + "/blame/main/" + manifestPath;
-
-      html +=
-        '<div class="timeline-item">' +
-        '<div class="timeline-dot"></div>' +
-        avatarHTML(commit.avatar, commit.author, "timeline-avatar") +
-        '<div class="timeline-content">' +
-        '<div class="timeline-msg">' + escapeHTML(commit.message) + '</div>' +
+    html += '</div><h3>Commit History</h3><div class="timeline">';
+    data.commits.forEach(function(commit) {
+      var commitUrl = REPO_BASE + "/commit/" + commit.sha_full;
+      html += '<div class="timeline-item"><div class="timeline-dot"></div>' +
+        avatarImg(commit.avatar, commit.author, "timeline-avatar") +
+        '<div class="timeline-content"><div class="timeline-msg">' + escapeHTML(commit.message) + '</div>' +
         '<div class="timeline-meta">' +
-        '<span class="author-name">' + commit.author + '</span>' +
+        '<span class="author-name" data-email="' + escapeHTML(commit.email) + '">' + escapeHTML(commit.author) + '</span>' +
         '<a href="' + commitUrl + '" target="_blank">' + commit.sha + '</a>' +
-        '<span>' + relativeTime(commit.date) + '</span>' +
-        '</div></div></div>';
+        '<span>' + relativeTime(commit.date) + '</span></div></div></div>';
     });
-
     html += '</div>';
-
-    // ── Blame link ────────────────────────────────────────
     var manifestPath = "components/" + c.name + "/manifest.json";
-    var blameUrl = REPO_URL + "/blame/main/" + manifestPath;
-    html +=
-      '<div style="margin-top: 20px; text-align: center;">' +
-      '<a href="' + blameUrl + '" target="_blank" style="font-size: 13px; color: var(--text-secondary);">' +
+    var blameUrl = REPO_BASE + "/blame/main/" + manifestPath;
+    html += '<div style="margin-top:20px;text-align:center">' +
+      '<a href="' + blameUrl + '" target="_blank" style="font-size:13px;color:var(--text-secondary)">' +
       '📜 View full blame on GitHub →</a></div>';
-
     el.innerHTML = html;
+
+    // Bind contributor cards → profile
+    el.querySelectorAll(".contributor-card").forEach(function(card) {
+      card.addEventListener("click", function() {
+        var email = card.dataset.email;
+        var person = findPersonByEmail(email);
+        if (person) openProfile(person);
+      });
+    });
+    // Bind author names in timeline → profile
+    el.querySelectorAll(".author-name[data-email]").forEach(function(el2) {
+      el2.addEventListener("click", function(e) {
+        e.stopPropagation();
+        var person = findPersonByEmail(el2.dataset.email);
+        if (person) openProfile(person);
+      });
+    });
+    // Bind timeline avatars → profile
+    el.querySelectorAll(".timeline-avatar, .timeline-avatar-fallback").forEach(function(av) {
+      av.addEventListener("click", function(e) {
+        e.stopPropagation();
+        var timelineItem = av.closest(".timeline-item");
+        if (timelineItem) {
+          var nameEl = timelineItem.querySelector(".author-name[data-email]");
+          if (nameEl) {
+            var person = findPersonByEmail(nameEl.dataset.email);
+            if (person) openProfile(person);
+          }
+        }
+      });
+    });
   }
 
-  function escapeHTML(str) {
-    var div = document.createElement("div");
-    div.textContent = str;
-    return div.innerHTML;
+  function findPersonByEmail(email) {
+    for (var compName in contributorsData) {
+      var cd = contributorsData[compName];
+      if (cd && cd.contributors) {
+        var p = cd.contributors.find(function(c) { return c.email === email; });
+        if (p) return p;
+      }
+    }
+    return null;
   }
 
   function closeModal() {
@@ -1352,55 +1034,124 @@ a:hover { text-decoration: underline; }
     document.body.style.overflow = "";
   }
 
+  // ── Profile Overlay ─────────────────────────────────────
+  function openProfile(person) {
+    document.getElementById("profileAvatar").innerHTML = avatarImg(person.avatar, person.name, "profile-avatar");
+    document.getElementById("profileName").textContent = person.name;
+    document.getElementById("profileEmail").textContent = person.email;
+
+    // Find all components this person contributed to
+    var comps = [];
+    var totalCommits = 0;
+    var totalStars = 0;
+    allComponents.forEach(function(c) {
+      var cd = contributorsData[c.name];
+      if (!cd || !cd.contributors) return;
+      var match = cd.contributors.find(function(p) { return p.email === person.email; });
+      if (match) {
+        var isOP = cd.created_by && cd.created_by.email === person.email;
+        var commitCount = cd.commits.filter(function(cm) { return cm.email === person.email; }).length;
+        totalCommits += commitCount;
+        totalStars += getStars(c);
+        comps.push({ component: c, isOP: isOP, commits: commitCount });
+      }
+    });
+
+    document.getElementById("profileStats").innerHTML =
+      '<span><strong>' + comps.length + '</strong> component' + (comps.length !== 1 ? "s" : "") + '</span>' +
+      '<span><strong>' + totalCommits + '</strong> commit' + (totalCommits !== 1 ? "s" : "") + '</span>' +
+      (totalStars > 0 ? '<span>⭐ <strong>' + totalStars + '</strong> total stars</span>' : "");
+
+    var html = "";
+    comps.forEach(function(entry) {
+      var c = entry.component;
+      var roleCls = entry.isOP ? "op" : "contributor";
+      var roleLabel = entry.isOP ? "OP" : "Contributor";
+      html += '<div class="profile-component" data-name="' + c.name + '">' +
+        '<div class="profile-comp-icon">' + iconFor(c.provider) + '</div>' +
+        '<div class="profile-comp-info"><div class="profile-comp-name">' + c.name + '</div>' +
+        '<div class="profile-comp-desc">' + escapeHTML(c.description) + '</div></div>' +
+        '<div class="profile-comp-meta">' +
+        '<span class="profile-comp-role ' + roleCls + '">' + roleLabel + '</span>' +
+        (getStars(c) > 0 ? starsHTML(getStars(c)) : "") +
+        '</div></div>';
+    });
+
+    if (!comps.length) {
+      html = '<div class="no-history"><div class="no-text">No components found for this contributor.</div></div>';
+    }
+
+    document.getElementById("profileComponents").innerHTML = html;
+
+    // Bind component clicks → open that component's modal
+    document.getElementById("profileComponents").querySelectorAll(".profile-component").forEach(function(el) {
+      el.addEventListener("click", function() {
+        var comp = allComponents.find(function(c) { return c.name === el.dataset.name; });
+        if (comp) {
+          closeProfile();
+          openModal(comp);
+        }
+      });
+    });
+
+    $profileOverlay.classList.add("open");
+  }
+
+  function closeProfile() {
+    $profileOverlay.classList.remove("open");
+    // Only restore scroll if detail modal is also closed
+    if (!$modalOverlay.classList.contains("open")) {
+      document.body.style.overflow = "";
+    }
+  }
+
   // ── Events ──────────────────────────────────────────────
   document.getElementById("modalClose").addEventListener("click", closeModal);
-  $modalOverlay.addEventListener("click", function(e) {
-    if (e.target === $modalOverlay) closeModal();
-  });
+  $modalOverlay.addEventListener("click", function(e) { if (e.target === $modalOverlay) closeModal(); });
+  document.getElementById("profileClose").addEventListener("click", closeProfile);
+  $profileOverlay.addEventListener("click", function(e) { if (e.target === $profileOverlay) closeProfile(); });
   document.addEventListener("keydown", function(e) {
-    if (e.key === "Escape") closeModal();
+    if (e.key === "Escape") {
+      if ($profileOverlay.classList.contains("open")) closeProfile();
+      else closeModal();
+    }
   });
 
   var searchTimer;
   $searchInput.addEventListener("input", function() {
     clearTimeout(searchTimer);
-    searchTimer = setTimeout(function() {
-      searchQuery = $searchInput.value.trim();
-      render();
-    }, 150);
+    searchTimer = setTimeout(function() { searchQuery = $searchInput.value.trim(); render(); }, 150);
   });
 
   // ── Init ────────────────────────────────────────────────
-  async function init() {
-    // Fetch both in parallel
-    var results = await Promise.all([
+  function init() {
+    Promise.all([
       fetchJSON(INDEX_FALLBACK, INDEX_URL),
-      fetchJSON(CONTRIBUTORS_FALLBACK, null),
-    ]);
+      fetchJSON(CONTRIBUTORS_FALLBACK, null)
+    ]).then(function(results) {
+      var data = results[0];
+      contributorsData = results[1] || {};
+      $loading.style.display = "none";
 
-    var data = results[0];
-    contributorsData = results[1] || {};
+      if (!data || !data.connectors) {
+        $cardGrid.innerHTML =
+          '<div class="empty-state" style="grid-column:1/-1">' +
+          '<div class="empty-icon">⚠️</div><div class="empty-title">Could not load marketplace</div>' +
+          '<div class="empty-desc">Check your network connection or try again later.</div></div>';
+        return;
+      }
 
-    $loading.style.display = "none";
+      allComponents = data.connectors;
+      initTabs();
+      render();
 
-    if (!data || !data.connectors) {
-      $cardGrid.innerHTML =
-        '<div class="empty-state" style="grid-column: 1 / -1;">' +
-        '<div class="empty-icon">⚠️</div>' +
-        '<div class="empty-title">Could not load marketplace</div>' +
-        '<div class="empty-desc">Check your network connection or try again later.</div></div>';
-      return;
-    }
-
-    allComponents = data.connectors;
-    initTabs();
-    render();
+      // Fetch GitHub stars in the background, then re-render
+      fetchAllStars().then(function() { render(); });
+    });
   }
 
   init();
-
 })();
 </script>
-
 </body>
 </html>
