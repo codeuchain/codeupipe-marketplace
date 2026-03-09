@@ -4,6 +4,8 @@ Community-driven index for [codeupipe](https://github.com/codeuchain/codeupipe) 
 
 This repo is **the** registry. Packages are hosted on PyPI — this is the discovery layer that lets `cup marketplace search` find them.
 
+🌐 **[Browse the Marketplace →](https://codeuchain.github.io/codeupipe-marketplace/)** — search, filter, and explore all available components from your browser.
+
 ## How It Works
 
 ```
@@ -99,6 +101,7 @@ Every component has a `manifest.json`:
 
 ## Links
 
+- **Browse online**: [codeuchain.github.io/codeupipe-marketplace](https://codeuchain.github.io/codeupipe-marketplace/)
 - **Core framework**: [codeuchain/codeupipe](https://github.com/codeuchain/codeupipe)
 - **Documentation**: [codeupipe.com](https://codeupipe.com)
 - **Connector guide**: [Ring 8 Blueprint](https://github.com/codeuchain/codeupipe/blob/main/docs/ring8-connect-blueprint.md)

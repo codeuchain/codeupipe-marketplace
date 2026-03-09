@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>codeupipe Marketplace</title>
+  <meta name="description" content="Browse connectors, filters, hooks, and bundles for codeupipe pipelines.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+  <style>
+/* ── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Tokens ────────────────────────────────────────────────── */
+:root {
+  --bg-base:       #0d1117;
+  --bg-surface:    #161b22;
+  --bg-elevated:   #1c2129;
+  --bg-hover:      #21262d;
+  --border:        #30363d;
+  --border-light:  #3d444d;
+  --text-primary:  #e6edf3;
+  --text-secondary:#8b949e;
+  --text-muted:    #6e7681;
+  --accent:        #7c4dff;      /* deep purple 400 */
+  --accent-dim:    #5e35b1;      /* deep purple 700 */
+  --accent-glow:   rgba(124,77,255,0.15);
+  --amber:         #ffab00;
+  --amber-dim:     #ff8f00;
+  --green:         #3fb950;
+  --blue:          #58a6ff;
+  --red:           #f85149;
+  --radius:        8px;
+  --radius-lg:     12px;
+  --shadow:        0 2px 8px rgba(0,0,0,0.3);
+  --shadow-lg:     0 8px 32px rgba(0,0,0,0.5);
+  --font:          -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono:     'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+  --transition:    150ms ease;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg-base);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Header ────────────────────────────────────────────────── */
+.header {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: 64px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.logo:hover { text-decoration: none; }
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--accent), var(--amber));
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.logo span { color: var(--accent); }
+.logo em { font-style: normal; color: var(--text-muted); font-weight: 400; }
+
+.header-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+  font-size: 14px;
+}
+
+.header-links a {
+  color: var(--text-secondary);
+  transition: color var(--transition);
+}
+
+.header-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+/* ── Search Bar ────────────────────────────────────────────── */
+.search-section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 24px 0;
+}
+
+.search-wrap {
+  position: relative;
+  max-width: 600px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+  font-size: 16px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px 12px 42px;
+  font-size: 15px;
+  font-family: var(--font);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.search-input::placeholder { color: var(--text-muted); }
+
+.search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* ── Toolbar (filters + stats) ─────────────────────────────── */
+.toolbar {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px 24px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition);
+  user-select: none;
+}
+
+.chip:hover {
+  border-color: var(--border-light);
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
+.chip.active {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.chip .count {
+  font-size: 11px;
+  background: var(--bg-hover);
+  padding: 1px 6px;
+  border-radius: 10px;
+  color: var(--text-muted);
+}
+
+.chip.active .count {
+  background: var(--accent-dim);
+  color: #fff;
+}
+
+.stat-text {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ── Card Grid ─────────────────────────────────────────────── */
+.grid-section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}
+
+/* ── Card ──────────────────────────────────────────────────── */
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow), 0 0 0 1px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+
+.card-title-group {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.card-provider {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.card-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.badge-verified {
+  background: rgba(63,185,80,0.15);
+  color: var(--green);
+  border: 1px solid rgba(63,185,80,0.3);
+}
+
+.badge-community {
+  background: rgba(88,166,255,0.15);
+  color: var(--blue);
+  border: 1px solid rgba(88,166,255,0.3);
+}
+
+.badge-type {
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.card-version {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.card-cats {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.cat-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  background: var(--bg-elevated);
+  border-radius: 10px;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+/* ── Detail Modal ──────────────────────────────────────────── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 24px;
+  overflow-y: auto;
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  max-width: 680px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  animation: modalIn 200ms ease;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px 24px 0;
+}
+
+.modal-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+
+.modal-title-group { flex: 1; }
+
+.modal-name {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.modal-author {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  line-height: 1;
+  transition: all var(--transition);
+}
+
+.modal-close:hover { color: var(--text-primary); background: var(--bg-hover); }
+
+.modal-body { padding: 20px 24px 24px; }
+
+.modal-desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.modal-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.detail-item label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.detail-item span,
+.detail-item a {
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.detail-item code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--bg-elevated);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.filters-section h3 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.filter-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.filter-tag {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 4px 10px;
+  background: var(--accent-glow);
+  border: 1px solid var(--accent-dim);
+  border-radius: 6px;
+  color: var(--accent);
+}
+
+.install-section {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.install-section h3 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.install-cmd {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.install-cmd code {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--green);
+  background: var(--bg-base);
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  user-select: all;
+}
+
+.install-cmd button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition);
+  white-space: nowrap;
+}
+
+.install-cmd button:hover { background: var(--accent-dim); }
+
+/* ── Empty state ───────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 80px 24px;
+}
+
+.empty-icon { font-size: 48px; margin-bottom: 16px; }
+.empty-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+.empty-desc { font-size: 14px; color: var(--text-muted); }
+
+/* ── Loading ───────────────────────────────────────────────── */
+.loading {
+  text-align: center;
+  padding: 80px 24px;
+  color: var(--text-muted);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Footer ────────────────────────────────────────────────── */
+.footer {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-links { display: flex; gap: 16px; }
+.footer a { color: var(--text-secondary); }
+.footer a:hover { color: var(--text-primary); }
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .header-inner { gap: 12px; }
+  .logo em { display: none; }
+  .card-grid { grid-template-columns: 1fr; }
+  .detail-grid { grid-template-columns: 1fr; }
+  .modal-overlay { padding: 24px 12px; }
+}
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ──────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header-inner">
+      <a class="logo" href=".">
+        <div class="logo-icon">⚡</div>
+        <span>codeupipe</span> <em>Marketplace</em>
+      </a>
+      <nav class="header-links">
+        <a href="https://codeuchain.github.io/codeupipe/" target="_blank">Docs</a>
+        <a href="https://github.com/codeuchain/codeupipe" target="_blank">GitHub</a>
+        <a href="https://github.com/codeuchain/codeupipe-marketplace" target="_blank">Contribute</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── Search ──────────────────────────────────────────── -->
+  <section class="search-section">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        class="search-input"
+        id="searchInput"
+        placeholder="Search components…"
+        autocomplete="off"
+        autofocus
+      >
+    </div>
+  </section>
+
+  <!-- ── Toolbar ─────────────────────────────────────────── -->
+  <div class="toolbar" id="toolbar">
+    <!-- chips injected by JS -->
+  </div>
+
+  <!-- ── Grid ────────────────────────────────────────────── -->
+  <section class="grid-section" id="gridSection">
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <div>Loading marketplace index…</div>
+    </div>
+    <div class="card-grid" id="cardGrid"></div>
+  </section>
+
+  <!-- ── Detail Modal ────────────────────────────────────── -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <div class="modal-icon" id="modalIcon"></div>
+        <div class="modal-title-group">
+          <div class="modal-name" id="modalName"></div>
+          <div class="modal-author" id="modalAuthor"></div>
+        </div>
+        <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-badges" id="modalBadges"></div>
+        <div class="detail-grid" id="modalDetails"></div>
+        <div class="filters-section" id="modalFilters"></div>
+        <div class="install-section">
+          <h3>Install</h3>
+          <div class="install-cmd">
+            <code id="installCmd"></code>
+            <button id="copyBtn">Copy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer ──────────────────────────────────────────── -->
+  <footer class="footer">
+    <span>codeupipe marketplace — <a href="https://pypi.org/project/codeupipe/" target="_blank">pip install codeupipe</a></span>
+    <div class="footer-links">
+      <a href="https://github.com/codeuchain/codeupipe-marketplace/blob/main/CONTRIBUTING.md" target="_blank">Submit a Component</a>
+      <a href="https://github.com/codeuchain/codeupipe-marketplace/issues" target="_blank">Report Issue</a>
+    </div>
+  </footer>
+
+<script>
+/* ================================================================
+   codeupipe Marketplace — Client-side SPA
+   Fetches index.json, renders cards, search, filter, detail modal.
+   Zero dependencies.
+   ================================================================ */
+
+(function () {
+  "use strict";
+
+  // ── Config ──────────────────────────────────────────────
+  const INDEX_URL = "https://raw.githubusercontent.com/codeuchain/codeupipe-marketplace/main/index.json";
+  // Fallback: try same-origin (for local dev or GitHub Pages)
+  const INDEX_FALLBACK = "./index.json";
+
+  // Provider → emoji mapping for card icons
+  const PROVIDER_ICONS = {
+    "google-ai": "🤖",
+    "stripe":    "💳",
+    "postgres":  "🐘",
+    "resend":    "✉️",
+    "redis":     "🔴",
+    "openai":    "🧠",
+    "slack":     "💬",
+    "github":    "🐙",
+    "aws":       "☁️",
+    "firebase":  "🔥",
+  };
+
+  const DEFAULT_ICON = "📦";
+
+  // ── State ───────────────────────────────────────────────
+  let allComponents = [];
+  let activeTypeFilter = null;
+  let activeTrustFilter = null;
+  let searchQuery = "";
+
+  // ── DOM refs ────────────────────────────────────────────
+  const $searchInput  = document.getElementById("searchInput");
+  const $toolbar      = document.getElementById("toolbar");
+  const $loading      = document.getElementById("loading");
+  const $cardGrid     = document.getElementById("cardGrid");
+  const $gridSection  = document.getElementById("gridSection");
+  const $modalOverlay = document.getElementById("modalOverlay");
+  const $modal        = document.getElementById("modal");
+
+  // ── Fetch index ─────────────────────────────────────────
+  async function fetchIndex() {
+    try {
+      let resp = await fetch(INDEX_FALLBACK);
+      if (!resp.ok) resp = await fetch(INDEX_URL);
+      if (!resp.ok) throw new Error("Failed to load index");
+      return await resp.json();
+    } catch (e) {
+      try {
+        const resp = await fetch(INDEX_URL);
+        if (!resp.ok) throw new Error("Failed to load index");
+        return await resp.json();
+      } catch (e2) {
+        return null;
+      }
+    }
+  }
+
+  // ── Helpers ─────────────────────────────────────────────
+  function iconFor(provider) {
+    return PROVIDER_ICONS[provider] || DEFAULT_ICON;
+  }
+
+  function trustBadge(trust) {
+    const cls = trust === "verified" ? "badge-verified" : "badge-community";
+    const icon = trust === "verified" ? "✓" : "⬡";
+    return `<span class="badge ${cls}">${icon} ${trust}</span>`;
+  }
+
+  function typeBadge(type) {
+    return `<span class="badge badge-type">${type}</span>`;
+  }
+
+  // ── Search matching ─────────────────────────────────────
+  function matchesSearch(comp, q) {
+    if (!q) return true;
+    const lower = q.toLowerCase();
+    const haystack = [
+      comp.name,
+      comp.provider,
+      comp.description,
+      comp.author,
+      ...(comp.categories || []),
+      ...(comp.filters || []),
+    ].join(" ").toLowerCase();
+    // Support multi-word: all words must match
+    return lower.split(/\s+/).every(word => haystack.includes(word));
+  }
+
+  // ── Filter + render ─────────────────────────────────────
+  function getFiltered() {
+    return allComponents.filter(c => {
+      if (activeTypeFilter && c.type !== activeTypeFilter) return false;
+      if (activeTrustFilter && c.trust !== activeTrustFilter) return false;
+      if (!matchesSearch(c, searchQuery)) return false;
+      return true;
+    });
+  }
+
+  function render() {
+    const filtered = getFiltered();
+    renderChips();
+    renderCards(filtered);
+  }
+
+  // ── Chips ───────────────────────────────────────────────
+  function renderChips() {
+    const types = {};
+    const trusts = {};
+    allComponents.forEach(c => {
+      types[c.type] = (types[c.type] || 0) + 1;
+      trusts[c.trust] = (trusts[c.trust] || 0) + 1;
+    });
+
+    let html = "";
+
+    // Type chips
+    Object.entries(types).sort().forEach(([type, count]) => {
+      const active = activeTypeFilter === type ? " active" : "";
+      html += `<span class="chip${active}" data-filter="type" data-value="${type}">
+        ${type} <span class="count">${count}</span>
+      </span>`;
+    });
+
+    // Separator
+    if (Object.keys(types).length && Object.keys(trusts).length) {
+      html += `<span style="color:var(--border); padding: 0 4px;">│</span>`;
+    }
+
+    // Trust chips
+    Object.entries(trusts).sort().forEach(([trust, count]) => {
+      const active = activeTrustFilter === trust ? " active" : "";
+      const icon = trust === "verified" ? "✓ " : "";
+      html += `<span class="chip${active}" data-filter="trust" data-value="${trust}">
+        ${icon}${trust} <span class="count">${count}</span>
+      </span>`;
+    });
+
+    // Stats
+    const filtered = getFiltered();
+    html += `<span class="stat-text">${filtered.length} of ${allComponents.length} components</span>`;
+
+    $toolbar.innerHTML = html;
+
+    // Bind clicks
+    $toolbar.querySelectorAll(".chip").forEach(chip => {
+      chip.addEventListener("click", () => {
+        const filterType = chip.dataset.filter;
+        const value = chip.dataset.value;
+
+        if (filterType === "type") {
+          activeTypeFilter = activeTypeFilter === value ? null : value;
+        } else {
+          activeTrustFilter = activeTrustFilter === value ? null : value;
+        }
+        render();
+      });
+    });
+  }
+
+  // ── Cards ───────────────────────────────────────────────
+  function renderCards(filtered) {
+    if (!filtered.length) {
+      $cardGrid.innerHTML = `
+        <div class="empty-state" style="grid-column: 1 / -1;">
+          <div class="empty-icon">🔍</div>
+          <div class="empty-title">No components found</div>
+          <div class="empty-desc">Try a different search or clear your filters.</div>
+        </div>`;
+      return;
+    }
+
+    $cardGrid.innerHTML = filtered.map(c => `
+      <article class="card" data-name="${c.name}">
+        <div class="card-header">
+          <div class="card-icon">${iconFor(c.provider)}</div>
+          <div class="card-title-group">
+            <div class="card-name">${c.name}</div>
+            <div class="card-provider">${c.author}</div>
+          </div>
+        </div>
+        <p class="card-desc">${c.description}</p>
+        <div class="card-cats">
+          ${(c.categories || []).map(cat => `<span class="cat-tag">${cat}</span>`).join("")}
+        </div>
+        <div class="card-meta">
+          ${trustBadge(c.trust)}
+          ${typeBadge(c.type)}
+          <span class="card-version">v${c.latest}</span>
+        </div>
+      </article>
+    `).join("");
+
+    // Bind card clicks
+    $cardGrid.querySelectorAll(".card").forEach(card => {
+      card.addEventListener("click", () => {
+        const comp = allComponents.find(c => c.name === card.dataset.name);
+        if (comp) openModal(comp);
+      });
+    });
+  }
+
+  // ── Modal ───────────────────────────────────────────────
+  function openModal(c) {
+    document.getElementById("modalIcon").textContent = iconFor(c.provider);
+    document.getElementById("modalName").textContent = c.name;
+    document.getElementById("modalAuthor").textContent = `by ${c.author}`;
+    document.getElementById("modalDesc").textContent = c.description;
+
+    // Badges
+    document.getElementById("modalBadges").innerHTML =
+      trustBadge(c.trust) + typeBadge(c.type);
+
+    // Detail grid
+    document.getElementById("modalDetails").innerHTML = `
+      <div class="detail-item">
+        <label>Version</label>
+        <span><code>${c.latest}</code></span>
+      </div>
+      <div class="detail-item">
+        <label>Min codeupipe</label>
+        <span><code>≥ ${c.min_codeupipe}</code></span>
+      </div>
+      <div class="detail-item">
+        <label>License</label>
+        <span>${c.license}</span>
+      </div>
+      <div class="detail-item">
+        <label>PyPI</label>
+        <a href="https://pypi.org/project/${c.pypi}/" target="_blank">${c.pypi}</a>
+      </div>
+      <div class="detail-item">
+        <label>Repository</label>
+        <a href="${c.repo}" target="_blank">${c.repo.replace("https://github.com/", "")}</a>
+      </div>
+      <div class="detail-item">
+        <label>Categories</label>
+        <span>${(c.categories || []).join(", ")}</span>
+      </div>
+    `;
+
+    // Filters
+    const filtersEl = document.getElementById("modalFilters");
+    if (c.filters && c.filters.length) {
+      filtersEl.innerHTML = `
+        <h3>Exported Filters</h3>
+        <div class="filter-list">
+          ${c.filters.map(f => `<span class="filter-tag">${f}</span>`).join("")}
+        </div>`;
+    } else {
+      filtersEl.innerHTML = "";
+    }
+
+    // Install command
+    const installCode = `pip install ${c.pypi}`;
+    document.getElementById("installCmd").textContent = installCode;
+
+    // Copy button
+    const copyBtn = document.getElementById("copyBtn");
+    copyBtn.textContent = "Copy";
+    copyBtn.onclick = () => {
+      navigator.clipboard.writeText(installCode).then(() => {
+        copyBtn.textContent = "Copied!";
+        setTimeout(() => { copyBtn.textContent = "Copy"; }, 1500);
+      });
+    };
+
+    $modalOverlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    $modalOverlay.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  // ── Events ──────────────────────────────────────────────
+  document.getElementById("modalClose").addEventListener("click", closeModal);
+  $modalOverlay.addEventListener("click", e => {
+    if (e.target === $modalOverlay) closeModal();
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") closeModal();
+  });
+
+  // Debounced search
+  let searchTimer;
+  $searchInput.addEventListener("input", () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      searchQuery = $searchInput.value.trim();
+      render();
+    }, 150);
+  });
+
+  // ── Init ────────────────────────────────────────────────
+  async function init() {
+    const data = await fetchIndex();
+    $loading.style.display = "none";
+
+    if (!data || !data.connectors) {
+      $cardGrid.innerHTML = `
+        <div class="empty-state" style="grid-column: 1 / -1;">
+          <div class="empty-icon">⚠️</div>
+          <div class="empty-title">Could not load marketplace</div>
+          <div class="empty-desc">Check your network connection or try again later.</div>
+        </div>`;
+      return;
+    }
+
+    allComponents = data.connectors;
+    render();
+  }
+
+  init();
+
+})();
+</script>
+
+</body>
+</html>
