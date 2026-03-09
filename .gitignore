@@ -16,3 +16,4 @@ Thumbs.db
 
 # Deploy artifact — copied by CI workflow
 site/index.json
+site/contributors.json

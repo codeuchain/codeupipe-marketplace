@@ -3,7 +3,11 @@ name: Deploy GitHub Pages
 on:
   push:
     branches: [main]
-    paths: [site/**]
+    paths:
+      - 'site/**'
+      - 'components/**'
+      - 'index.json'
+      - 'build_contributors.py'
   workflow_dispatch:
 
 permissions:
@@ -23,9 +27,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git log / blame
 
       - name: Copy index.json into site/
         run: cp index.json site/index.json
+
+      - name: Build contributors.json from git history
+        run: python3 build_contributors.py
 
       - uses: actions/configure-pages@v5
 

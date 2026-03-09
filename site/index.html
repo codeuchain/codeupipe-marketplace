@@ -21,8 +21,8 @@
   --text-primary:  #e6edf3;
   --text-secondary:#8b949e;
   --text-muted:    #6e7681;
-  --accent:        #7c4dff;      /* deep purple 400 */
-  --accent-dim:    #5e35b1;      /* deep purple 700 */
+  --accent:        #7c4dff;
+  --accent-dim:    #5e35b1;
   --accent-glow:   rgba(124,77,255,0.15);
   --amber:         #ffab00;
   --amber-dim:     #ff8f00;
@@ -297,6 +297,54 @@ a:hover { text-decoration: underline; }
   margin-top: auto;
 }
 
+/* ── Card Contributors Row ─────────────────────────────────── */
+.card-contributors {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.avatar-stack {
+  display: flex;
+  align-items: center;
+}
+
+.avatar-stack .avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--bg-surface);
+  margin-left: -6px;
+  object-fit: cover;
+  background: var(--bg-elevated);
+}
+
+.avatar-stack .avatar:first-child { margin-left: 0; }
+
+.avatar-fallback {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--bg-surface);
+  margin-left: -6px;
+  background: var(--accent-dim);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.avatar-fallback:first-child { margin-left: 0; }
+
+.card-contributors .contrib-text {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
 .badge {
   display: inline-flex;
   align-items: center;
@@ -368,7 +416,7 @@ a:hover { text-decoration: underline; }
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  max-width: 680px;
+  max-width: 720px;
   width: 100%;
   box-shadow: var(--shadow-lg);
   animation: modalIn 200ms ease;
@@ -426,8 +474,44 @@ a:hover { text-decoration: underline; }
 
 .modal-close:hover { color: var(--text-primary); background: var(--bg-hover); }
 
-.modal-body { padding: 20px 24px 24px; }
+/* ── Modal Tabs ────────────────────────────────────────────── */
+.modal-tabs {
+  display: flex;
+  gap: 0;
+  padding: 16px 24px 0;
+  border-bottom: 1px solid var(--border);
+}
 
+.modal-tab {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all var(--transition);
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-family: var(--font);
+}
+
+.modal-tab:hover { color: var(--text-secondary); }
+
+.modal-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.modal-tab-panel {
+  display: none;
+  padding: 20px 24px 24px;
+}
+
+.modal-tab-panel.active { display: block; }
+
+/* ── Modal Body (Details tab) ──────────────────────────────── */
 .modal-desc {
   font-size: 15px;
   color: var(--text-secondary);
@@ -549,6 +633,187 @@ a:hover { text-decoration: underline; }
 
 .install-cmd button:hover { background: var(--accent-dim); }
 
+/* ── Contributors Tab ──────────────────────────────────────── */
+.contributors-panel h3 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.contributor-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.contributor-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  min-width: 200px;
+}
+
+.contributor-card .avatar-lg {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--bg-hover);
+  flex-shrink: 0;
+}
+
+.contributor-card .avatar-lg-fallback {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent-dim);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contributor-card .contrib-info { flex: 1; min-width: 0; }
+
+.contributor-card .contrib-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contributor-card .contrib-role {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.contributor-card .op-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: rgba(255,171,0,0.15);
+  color: var(--amber);
+  border: 1px solid rgba(255,171,0,0.3);
+  flex-shrink: 0;
+}
+
+/* ── Commit Timeline ───────────────────────────────────────── */
+.timeline {
+  position: relative;
+  padding-left: 24px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: var(--border);
+  border-radius: 1px;
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.timeline-item:last-child { padding-bottom: 0; }
+
+.timeline-dot {
+  position: absolute;
+  left: -19px;
+  top: 6px;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  border: 2px solid var(--bg-surface);
+  z-index: 1;
+}
+
+.timeline-item:last-child .timeline-dot {
+  background: var(--amber);
+}
+
+.timeline-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--bg-elevated);
+  flex-shrink: 0;
+}
+
+.timeline-avatar-fallback {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-dim);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.timeline-content { flex: 1; min-width: 0; }
+
+.timeline-msg {
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.timeline-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.timeline-meta a {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--blue);
+}
+
+.timeline-meta .author-name { font-weight: 500; color: var(--text-secondary); }
+
+.no-history {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+}
+
+.no-history .no-icon { font-size: 32px; margin-bottom: 8px; }
+.no-history .no-text { font-size: 14px; }
+
 /* ── Empty state ───────────────────────────────────────────── */
 .empty-state {
   text-align: center;
@@ -604,6 +869,7 @@ a:hover { text-decoration: underline; }
   .card-grid { grid-template-columns: 1fr; }
   .detail-grid { grid-template-columns: 1fr; }
   .modal-overlay { padding: 24px 12px; }
+  .contributor-card { min-width: 160px; }
 }
   </style>
 </head>
@@ -640,9 +906,7 @@ a:hover { text-decoration: underline; }
   </section>
 
   <!-- ── Toolbar ─────────────────────────────────────────── -->
-  <div class="toolbar" id="toolbar">
-    <!-- chips injected by JS -->
-  </div>
+  <div class="toolbar" id="toolbar"></div>
 
   <!-- ── Grid ────────────────────────────────────────────── -->
   <section class="grid-section" id="gridSection">
@@ -664,7 +928,15 @@ a:hover { text-decoration: underline; }
         </div>
         <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
       </div>
-      <div class="modal-body">
+
+      <!-- Tab bar -->
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="details">Details</button>
+        <button class="modal-tab" data-tab="contributors">Contributors</button>
+      </div>
+
+      <!-- Details tab -->
+      <div class="modal-tab-panel active" id="panelDetails" data-tab="details">
         <p class="modal-desc" id="modalDesc"></p>
         <div class="modal-badges" id="modalBadges"></div>
         <div class="detail-grid" id="modalDetails"></div>
@@ -676,6 +948,11 @@ a:hover { text-decoration: underline; }
             <button id="copyBtn">Copy</button>
           </div>
         </div>
+      </div>
+
+      <!-- Contributors tab -->
+      <div class="modal-tab-panel contributors-panel" id="panelContributors" data-tab="contributors">
+        <div id="contributorsContent"></div>
       </div>
     </div>
   </div>
@@ -692,7 +969,9 @@ a:hover { text-decoration: underline; }
 <script>
 /* ================================================================
    codeupipe Marketplace — Client-side SPA
-   Fetches index.json, renders cards, search, filter, detail modal.
+   Fetches index.json + contributors.json, renders cards with
+   contributor avatars, search, filter, detail modal with git
+   history timeline.
    Zero dependencies.
    ================================================================ */
 
@@ -701,10 +980,11 @@ a:hover { text-decoration: underline; }
 
   // ── Config ──────────────────────────────────────────────
   const INDEX_URL = "https://raw.githubusercontent.com/codeuchain/codeupipe-marketplace/main/index.json";
-  // Fallback: try same-origin (for local dev or GitHub Pages)
   const INDEX_FALLBACK = "./index.json";
+  const CONTRIBUTORS_FALLBACK = "./contributors.json";
+  const REPO_URL = "https://github.com/codeuchain/codeupipe-marketplace";
 
-  // Provider → emoji mapping for card icons
+  // Provider → emoji mapping
   const PROVIDER_ICONS = {
     "google-ai": "🤖",
     "stripe":    "💳",
@@ -722,6 +1002,7 @@ a:hover { text-decoration: underline; }
 
   // ── State ───────────────────────────────────────────────
   let allComponents = [];
+  let contributorsData = {};
   let activeTypeFilter = null;
   let activeTrustFilter = null;
   let searchQuery = "";
@@ -731,25 +1012,23 @@ a:hover { text-decoration: underline; }
   const $toolbar      = document.getElementById("toolbar");
   const $loading      = document.getElementById("loading");
   const $cardGrid     = document.getElementById("cardGrid");
-  const $gridSection  = document.getElementById("gridSection");
   const $modalOverlay = document.getElementById("modalOverlay");
-  const $modal        = document.getElementById("modal");
 
-  // ── Fetch index ─────────────────────────────────────────
-  async function fetchIndex() {
+  // ── Fetch helpers ───────────────────────────────────────
+  async function fetchJSON(fallback, remote) {
     try {
-      let resp = await fetch(INDEX_FALLBACK);
-      if (!resp.ok) resp = await fetch(INDEX_URL);
-      if (!resp.ok) throw new Error("Failed to load index");
+      let resp = await fetch(fallback);
+      if (!resp.ok && remote) resp = await fetch(remote);
+      if (!resp.ok) return null;
       return await resp.json();
-    } catch (e) {
-      try {
-        const resp = await fetch(INDEX_URL);
-        if (!resp.ok) throw new Error("Failed to load index");
-        return await resp.json();
-      } catch (e2) {
-        return null;
+    } catch {
+      if (remote) {
+        try {
+          const resp = await fetch(remote);
+          if (resp.ok) return await resp.json();
+        } catch { /* noop */ }
       }
+      return null;
     }
   }
 
@@ -758,14 +1037,43 @@ a:hover { text-decoration: underline; }
     return PROVIDER_ICONS[provider] || DEFAULT_ICON;
   }
 
+  function initial(name) {
+    return (name || "?").charAt(0).toUpperCase();
+  }
+
   function trustBadge(trust) {
     const cls = trust === "verified" ? "badge-verified" : "badge-community";
     const icon = trust === "verified" ? "✓" : "⬡";
-    return `<span class="badge ${cls}">${icon} ${trust}</span>`;
+    return '<span class="badge ' + cls + '">' + icon + ' ' + trust + '</span>';
   }
 
   function typeBadge(type) {
-    return `<span class="badge badge-type">${type}</span>`;
+    return '<span class="badge badge-type">' + type + '</span>';
+  }
+
+  function relativeTime(dateStr) {
+    if (!dateStr) return "";
+    const now = Date.now();
+    const then = new Date(dateStr).getTime();
+    const diff = now - then;
+    const mins  = Math.floor(diff / 60000);
+    const hours = Math.floor(diff / 3600000);
+    const days  = Math.floor(diff / 86400000);
+    if (days > 365) return Math.floor(days / 365) + "y ago";
+    if (days > 30)  return Math.floor(days / 30) + "mo ago";
+    if (days > 0)   return days + "d ago";
+    if (hours > 0)  return hours + "h ago";
+    if (mins > 0)   return mins + "m ago";
+    return "just now";
+  }
+
+  function avatarHTML(url, name, cls) {
+    // Returns an <img> with onerror fallback to initials
+    const i = initial(name);
+    const fbCls = cls.replace("avatar", "avatar-fallback")
+                     .replace("-lg", "-lg-fallback");
+    return '<img class="' + cls + '" src="' + url + '" alt="' + name + '" ' +
+           'onerror="this.outerHTML=\'<span class=&quot;' + fbCls + '&quot;>' + i + '</span>\'">';
   }
 
   // ── Search matching ─────────────────────────────────────
@@ -773,20 +1081,16 @@ a:hover { text-decoration: underline; }
     if (!q) return true;
     const lower = q.toLowerCase();
     const haystack = [
-      comp.name,
-      comp.provider,
-      comp.description,
-      comp.author,
+      comp.name, comp.provider, comp.description, comp.author,
       ...(comp.categories || []),
       ...(comp.filters || []),
     ].join(" ").toLowerCase();
-    // Support multi-word: all words must match
-    return lower.split(/\s+/).every(word => haystack.includes(word));
+    return lower.split(/\s+/).every(function(word) { return haystack.includes(word); });
   }
 
   // ── Filter + render ─────────────────────────────────────
   function getFiltered() {
-    return allComponents.filter(c => {
+    return allComponents.filter(function(c) {
       if (activeTypeFilter && c.type !== activeTypeFilter) return false;
       if (activeTrustFilter && c.trust !== activeTrustFilter) return false;
       if (!matchesSearch(c, searchQuery)) return false;
@@ -795,61 +1099,48 @@ a:hover { text-decoration: underline; }
   }
 
   function render() {
-    const filtered = getFiltered();
     renderChips();
-    renderCards(filtered);
+    renderCards(getFiltered());
   }
 
   // ── Chips ───────────────────────────────────────────────
   function renderChips() {
-    const types = {};
-    const trusts = {};
-    allComponents.forEach(c => {
+    var types = {}, trusts = {};
+    allComponents.forEach(function(c) {
       types[c.type] = (types[c.type] || 0) + 1;
       trusts[c.trust] = (trusts[c.trust] || 0) + 1;
     });
 
-    let html = "";
+    var html = "";
 
-    // Type chips
-    Object.entries(types).sort().forEach(([type, count]) => {
-      const active = activeTypeFilter === type ? " active" : "";
-      html += `<span class="chip${active}" data-filter="type" data-value="${type}">
-        ${type} <span class="count">${count}</span>
-      </span>`;
+    Object.keys(types).sort().forEach(function(type) {
+      var active = activeTypeFilter === type ? " active" : "";
+      html += '<span class="chip' + active + '" data-filter="type" data-value="' + type + '">' +
+              type + ' <span class="count">' + types[type] + '</span></span>';
     });
 
-    // Separator
     if (Object.keys(types).length && Object.keys(trusts).length) {
-      html += `<span style="color:var(--border); padding: 0 4px;">│</span>`;
+      html += '<span style="color:var(--border); padding: 0 4px;">│</span>';
     }
 
-    // Trust chips
-    Object.entries(trusts).sort().forEach(([trust, count]) => {
-      const active = activeTrustFilter === trust ? " active" : "";
-      const icon = trust === "verified" ? "✓ " : "";
-      html += `<span class="chip${active}" data-filter="trust" data-value="${trust}">
-        ${icon}${trust} <span class="count">${count}</span>
-      </span>`;
+    Object.keys(trusts).sort().forEach(function(trust) {
+      var active = activeTrustFilter === trust ? " active" : "";
+      var icon = trust === "verified" ? "✓ " : "";
+      html += '<span class="chip' + active + '" data-filter="trust" data-value="' + trust + '">' +
+              icon + trust + ' <span class="count">' + trusts[trust] + '</span></span>';
     });
 
-    // Stats
-    const filtered = getFiltered();
-    html += `<span class="stat-text">${filtered.length} of ${allComponents.length} components</span>`;
+    var filtered = getFiltered();
+    html += '<span class="stat-text">' + filtered.length + ' of ' + allComponents.length + ' components</span>';
 
     $toolbar.innerHTML = html;
 
-    // Bind clicks
-    $toolbar.querySelectorAll(".chip").forEach(chip => {
-      chip.addEventListener("click", () => {
-        const filterType = chip.dataset.filter;
-        const value = chip.dataset.value;
-
-        if (filterType === "type") {
-          activeTypeFilter = activeTypeFilter === value ? null : value;
-        } else {
-          activeTrustFilter = activeTrustFilter === value ? null : value;
-        }
+    $toolbar.querySelectorAll(".chip").forEach(function(chip) {
+      chip.addEventListener("click", function() {
+        var ft = chip.dataset.filter;
+        var val = chip.dataset.value;
+        if (ft === "type") activeTypeFilter = activeTypeFilter === val ? null : val;
+        else activeTrustFilter = activeTrustFilter === val ? null : val;
         render();
       });
     });
@@ -858,112 +1149,202 @@ a:hover { text-decoration: underline; }
   // ── Cards ───────────────────────────────────────────────
   function renderCards(filtered) {
     if (!filtered.length) {
-      $cardGrid.innerHTML = `
-        <div class="empty-state" style="grid-column: 1 / -1;">
-          <div class="empty-icon">🔍</div>
-          <div class="empty-title">No components found</div>
-          <div class="empty-desc">Try a different search or clear your filters.</div>
-        </div>`;
+      $cardGrid.innerHTML =
+        '<div class="empty-state" style="grid-column: 1 / -1;">' +
+        '<div class="empty-icon">🔍</div>' +
+        '<div class="empty-title">No components found</div>' +
+        '<div class="empty-desc">Try a different search or clear your filters.</div></div>';
       return;
     }
 
-    $cardGrid.innerHTML = filtered.map(c => `
-      <article class="card" data-name="${c.name}">
-        <div class="card-header">
-          <div class="card-icon">${iconFor(c.provider)}</div>
-          <div class="card-title-group">
-            <div class="card-name">${c.name}</div>
-            <div class="card-provider">${c.author}</div>
-          </div>
-        </div>
-        <p class="card-desc">${c.description}</p>
-        <div class="card-cats">
-          ${(c.categories || []).map(cat => `<span class="cat-tag">${cat}</span>`).join("")}
-        </div>
-        <div class="card-meta">
-          ${trustBadge(c.trust)}
-          ${typeBadge(c.type)}
-          <span class="card-version">v${c.latest}</span>
-        </div>
-      </article>
-    `).join("");
+    $cardGrid.innerHTML = filtered.map(function(c) {
+      var contribData = contributorsData[c.name];
+      var contribHTML = "";
 
-    // Bind card clicks
-    $cardGrid.querySelectorAll(".card").forEach(card => {
-      card.addEventListener("click", () => {
-        const comp = allComponents.find(c => c.name === card.dataset.name);
+      if (contribData && contribData.contributors && contribData.contributors.length) {
+        var avatars = contribData.contributors.slice(0, 4).map(function(p) {
+          return avatarHTML(p.avatar, p.name, "avatar");
+        }).join("");
+        var extra = contribData.contributors.length > 4
+          ? ' <span class="contrib-text">+' + (contribData.contributors.length - 4) + '</span>'
+          : "";
+        var countLabel = contribData.contributors.length === 1 ? "1 contributor" : contribData.contributors.length + " contributors";
+        contribHTML =
+          '<div class="card-contributors">' +
+          '<div class="avatar-stack">' + avatars + '</div>' +
+          extra +
+          '<span class="contrib-text">' + countLabel + '</span></div>';
+      }
+
+      return '<article class="card" data-name="' + c.name + '">' +
+        '<div class="card-header">' +
+        '<div class="card-icon">' + iconFor(c.provider) + '</div>' +
+        '<div class="card-title-group">' +
+        '<div class="card-name">' + c.name + '</div>' +
+        '<div class="card-provider">' + c.author + '</div></div></div>' +
+        '<p class="card-desc">' + c.description + '</p>' +
+        '<div class="card-cats">' +
+        (c.categories || []).map(function(cat) {
+          return '<span class="cat-tag">' + cat + '</span>';
+        }).join("") + '</div>' +
+        contribHTML +
+        '<div class="card-meta">' +
+        trustBadge(c.trust) + typeBadge(c.type) +
+        '<span class="card-version">v' + c.latest + '</span></div>' +
+        '</article>';
+    }).join("");
+
+    $cardGrid.querySelectorAll(".card").forEach(function(card) {
+      card.addEventListener("click", function() {
+        var comp = allComponents.find(function(c) { return c.name === card.dataset.name; });
         if (comp) openModal(comp);
+      });
+    });
+  }
+
+  // ── Modal Tabs ──────────────────────────────────────────
+  function initTabs() {
+    document.querySelectorAll(".modal-tab").forEach(function(tab) {
+      tab.addEventListener("click", function() {
+        var target = tab.dataset.tab;
+        document.querySelectorAll(".modal-tab").forEach(function(t) { t.classList.remove("active"); });
+        document.querySelectorAll(".modal-tab-panel").forEach(function(p) { p.classList.remove("active"); });
+        tab.classList.add("active");
+        var panel = document.querySelector('.modal-tab-panel[data-tab="' + target + '"]');
+        if (panel) panel.classList.add("active");
       });
     });
   }
 
   // ── Modal ───────────────────────────────────────────────
   function openModal(c) {
+    // Reset to Details tab
+    document.querySelectorAll(".modal-tab").forEach(function(t) { t.classList.remove("active"); });
+    document.querySelectorAll(".modal-tab-panel").forEach(function(p) { p.classList.remove("active"); });
+    document.querySelector('.modal-tab[data-tab="details"]').classList.add("active");
+    document.getElementById("panelDetails").classList.add("active");
+
     document.getElementById("modalIcon").textContent = iconFor(c.provider);
     document.getElementById("modalName").textContent = c.name;
-    document.getElementById("modalAuthor").textContent = `by ${c.author}`;
+    document.getElementById("modalAuthor").textContent = "by " + c.author;
     document.getElementById("modalDesc").textContent = c.description;
 
     // Badges
-    document.getElementById("modalBadges").innerHTML =
-      trustBadge(c.trust) + typeBadge(c.type);
+    document.getElementById("modalBadges").innerHTML = trustBadge(c.trust) + typeBadge(c.type);
 
     // Detail grid
-    document.getElementById("modalDetails").innerHTML = `
-      <div class="detail-item">
-        <label>Version</label>
-        <span><code>${c.latest}</code></span>
-      </div>
-      <div class="detail-item">
-        <label>Min codeupipe</label>
-        <span><code>≥ ${c.min_codeupipe}</code></span>
-      </div>
-      <div class="detail-item">
-        <label>License</label>
-        <span>${c.license}</span>
-      </div>
-      <div class="detail-item">
-        <label>PyPI</label>
-        <a href="https://pypi.org/project/${c.pypi}/" target="_blank">${c.pypi}</a>
-      </div>
-      <div class="detail-item">
-        <label>Repository</label>
-        <a href="${c.repo}" target="_blank">${c.repo.replace("https://github.com/", "")}</a>
-      </div>
-      <div class="detail-item">
-        <label>Categories</label>
-        <span>${(c.categories || []).join(", ")}</span>
-      </div>
-    `;
+    document.getElementById("modalDetails").innerHTML =
+      '<div class="detail-item"><label>Version</label><span><code>' + c.latest + '</code></span></div>' +
+      '<div class="detail-item"><label>Min codeupipe</label><span><code>≥ ' + c.min_codeupipe + '</code></span></div>' +
+      '<div class="detail-item"><label>License</label><span>' + c.license + '</span></div>' +
+      '<div class="detail-item"><label>PyPI</label>' +
+      '<a href="https://pypi.org/project/' + c.pypi + '/" target="_blank">' + c.pypi + '</a></div>' +
+      '<div class="detail-item"><label>Repository</label>' +
+      '<a href="' + c.repo + '" target="_blank">' + c.repo.replace("https://github.com/", "") + '</a></div>' +
+      '<div class="detail-item"><label>Categories</label><span>' + (c.categories || []).join(", ") + '</span></div>';
 
     // Filters
-    const filtersEl = document.getElementById("modalFilters");
+    var filtersEl = document.getElementById("modalFilters");
     if (c.filters && c.filters.length) {
-      filtersEl.innerHTML = `
-        <h3>Exported Filters</h3>
-        <div class="filter-list">
-          ${c.filters.map(f => `<span class="filter-tag">${f}</span>`).join("")}
-        </div>`;
+      filtersEl.innerHTML = '<h3>Exported Filters</h3><div class="filter-list">' +
+        c.filters.map(function(f) { return '<span class="filter-tag">' + f + '</span>'; }).join("") +
+        '</div>';
     } else {
       filtersEl.innerHTML = "";
     }
 
     // Install command
-    const installCode = `pip install ${c.pypi}`;
+    var installCode = "pip install " + c.pypi;
     document.getElementById("installCmd").textContent = installCode;
 
-    // Copy button
-    const copyBtn = document.getElementById("copyBtn");
+    var copyBtn = document.getElementById("copyBtn");
     copyBtn.textContent = "Copy";
-    copyBtn.onclick = () => {
-      navigator.clipboard.writeText(installCode).then(() => {
+    copyBtn.onclick = function() {
+      navigator.clipboard.writeText(installCode).then(function() {
         copyBtn.textContent = "Copied!";
-        setTimeout(() => { copyBtn.textContent = "Copy"; }, 1500);
+        setTimeout(function() { copyBtn.textContent = "Copy"; }, 1500);
       });
     };
 
+    // ── Contributors tab content ──────────────────────────
+    renderContributorsTab(c);
+
     $modalOverlay.classList.add("open");
     document.body.style.overflow = "hidden";
+  }
+
+  function renderContributorsTab(c) {
+    var el = document.getElementById("contributorsContent");
+    var data = contributorsData[c.name];
+
+    if (!data || !data.commits || !data.commits.length) {
+      el.innerHTML =
+        '<div class="no-history">' +
+        '<div class="no-icon">📋</div>' +
+        '<div class="no-text">No git history available for this component.</div></div>';
+      return;
+    }
+
+    var html = "";
+
+    // ── Contributors section ──────────────────────────────
+    html += '<h3>Contributors</h3><div class="contributor-list">';
+
+    data.contributors.forEach(function(person, idx) {
+      var isOP = data.created_by && person.email === data.created_by.email;
+      var roleLabel = isOP ? "Original author" : "Contributor";
+      var opBadge = isOP ? '<span class="op-badge">OP</span>' : "";
+
+      html +=
+        '<div class="contributor-card">' +
+        avatarHTML(person.avatar, person.name, "avatar-lg") +
+        '<div class="contrib-info">' +
+        '<div class="contrib-name">' + person.name + '</div>' +
+        '<div class="contrib-role">' + roleLabel + '</div></div>' +
+        opBadge + '</div>';
+    });
+
+    html += '</div>';
+
+    // ── Commit timeline ───────────────────────────────────
+    html += '<h3>Commit History</h3><div class="timeline">';
+
+    data.commits.forEach(function(commit, idx) {
+      var isLast = idx === data.commits.length - 1;
+      var commitUrl = REPO_URL + "/commit/" + commit.sha_full;
+      var manifestPath = "components/" + c.name + "/manifest.json";
+      var blameUrl = REPO_URL + "/blame/main/" + manifestPath;
+
+      html +=
+        '<div class="timeline-item">' +
+        '<div class="timeline-dot"></div>' +
+        avatarHTML(commit.avatar, commit.author, "timeline-avatar") +
+        '<div class="timeline-content">' +
+        '<div class="timeline-msg">' + escapeHTML(commit.message) + '</div>' +
+        '<div class="timeline-meta">' +
+        '<span class="author-name">' + commit.author + '</span>' +
+        '<a href="' + commitUrl + '" target="_blank">' + commit.sha + '</a>' +
+        '<span>' + relativeTime(commit.date) + '</span>' +
+        '</div></div></div>';
+    });
+
+    html += '</div>';
+
+    // ── Blame link ────────────────────────────────────────
+    var manifestPath = "components/" + c.name + "/manifest.json";
+    var blameUrl = REPO_URL + "/blame/main/" + manifestPath;
+    html +=
+      '<div style="margin-top: 20px; text-align: center;">' +
+      '<a href="' + blameUrl + '" target="_blank" style="font-size: 13px; color: var(--text-secondary);">' +
+      '📜 View full blame on GitHub →</a></div>';
+
+    el.innerHTML = html;
+  }
+
+  function escapeHTML(str) {
+    var div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
   }
 
   function closeModal() {
@@ -973,18 +1354,17 @@ a:hover { text-decoration: underline; }
 
   // ── Events ──────────────────────────────────────────────
   document.getElementById("modalClose").addEventListener("click", closeModal);
-  $modalOverlay.addEventListener("click", e => {
+  $modalOverlay.addEventListener("click", function(e) {
     if (e.target === $modalOverlay) closeModal();
   });
-  document.addEventListener("keydown", e => {
+  document.addEventListener("keydown", function(e) {
     if (e.key === "Escape") closeModal();
   });
 
-  // Debounced search
-  let searchTimer;
-  $searchInput.addEventListener("input", () => {
+  var searchTimer;
+  $searchInput.addEventListener("input", function() {
     clearTimeout(searchTimer);
-    searchTimer = setTimeout(() => {
+    searchTimer = setTimeout(function() {
       searchQuery = $searchInput.value.trim();
       render();
     }, 150);
@@ -992,20 +1372,28 @@ a:hover { text-decoration: underline; }
 
   // ── Init ────────────────────────────────────────────────
   async function init() {
-    const data = await fetchIndex();
+    // Fetch both in parallel
+    var results = await Promise.all([
+      fetchJSON(INDEX_FALLBACK, INDEX_URL),
+      fetchJSON(CONTRIBUTORS_FALLBACK, null),
+    ]);
+
+    var data = results[0];
+    contributorsData = results[1] || {};
+
     $loading.style.display = "none";
 
     if (!data || !data.connectors) {
-      $cardGrid.innerHTML = `
-        <div class="empty-state" style="grid-column: 1 / -1;">
-          <div class="empty-icon">⚠️</div>
-          <div class="empty-title">Could not load marketplace</div>
-          <div class="empty-desc">Check your network connection or try again later.</div>
-        </div>`;
+      $cardGrid.innerHTML =
+        '<div class="empty-state" style="grid-column: 1 / -1;">' +
+        '<div class="empty-icon">⚠️</div>' +
+        '<div class="empty-title">Could not load marketplace</div>' +
+        '<div class="empty-desc">Check your network connection or try again later.</div></div>';
       return;
     }
 
     allComponents = data.connectors;
+    initTabs();
     render();
   }
 
