@@ -1,0 +1,42 @@
+name: Rebuild Index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'components/**'
+
+jobs:
+  rebuild:
+    name: Rebuild index.json from manifests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate manifests
+        run: python validate.py
+
+      - name: Rebuild index.json
+        run: python validate.py --build
+
+      - name: Commit updated index
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet index.json; then
+            echo "index.json unchanged"
+          else
+            git add index.json
+            git commit -m "chore: rebuild index.json [skip ci]"
+            git push
+            echo "✅ index.json committed"
+          fi

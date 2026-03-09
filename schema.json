@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "codeupipe Marketplace Component Manifest",
+  "description": "Metadata for a codeupipe connector, filter, hook, or bundle published to the marketplace.",
+  "type": "object",
+  "required": [
+    "name",
+    "provider",
+    "type",
+    "pypi",
+    "repo",
+    "description",
+    "categories",
+    "filters",
+    "trust",
+    "min_codeupipe",
+    "latest",
+    "author",
+    "license"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^codeupipe-[a-z0-9][a-z0-9-]*$",
+      "description": "Package name. Must start with 'codeupipe-' and use lowercase + hyphens."
+    },
+    "provider": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$",
+      "description": "Short provider identifier (e.g., 'stripe', 'google-ai')."
+    },
+    "type": {
+      "type": "string",
+      "enum": ["connector", "filter", "hook", "bundle"],
+      "description": "Component type."
+    },
+    "pypi": {
+      "type": "string",
+      "description": "PyPI package name (usually same as 'name')."
+    },
+    "repo": {
+      "type": "string",
+      "format": "uri",
+      "description": "Source repository URL."
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "One-line description of what this component does."
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9-]+$"
+      },
+      "minItems": 1,
+      "description": "Category tags (lowercase, hyphenated)."
+    },
+    "filters": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z][a-zA-Z0-9]*$"
+      },
+      "description": "Exported Filter/StreamFilter class names (PascalCase)."
+    },
+    "trust": {
+      "type": "string",
+      "enum": ["verified", "community"],
+      "description": "Trust tier. 'community' for all PRs; 'verified' set by maintainers."
+    },
+    "min_codeupipe": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Minimum codeupipe version required (semver)."
+    },
+    "latest": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Latest published version on PyPI (semver)."
+    },
+    "author": {
+      "type": "string",
+      "description": "Author or organization name."
+    },
+    "license": {
+      "type": "string",
+      "description": "SPDX license identifier (e.g., 'MIT', 'Apache-2.0')."
+    }
+  },
+  "additionalProperties": false
+}

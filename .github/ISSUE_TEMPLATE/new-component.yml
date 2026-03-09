@@ -1,0 +1,61 @@
+name: "📦 New Component Request"
+description: "Request a new component be added to the marketplace"
+title: "[Component] "
+labels: ["new-component"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your interest in publishing to the codeupipe marketplace!
+
+        If you've already built the package, you can skip this form and go straight
+        to opening a PR with your `manifest.json`. See [CONTRIBUTING.md](https://github.com/codeuchain/codeupipe-marketplace/blob/main/CONTRIBUTING.md).
+
+        Use this form if you want to **request** a component that doesn't exist yet.
+
+  - type: input
+    id: package_name
+    attributes:
+      label: Package Name
+      description: "Suggested name (e.g., codeupipe-twilio)"
+      placeholder: "codeupipe-"
+    validations:
+      required: true
+
+  - type: input
+    id: provider
+    attributes:
+      label: Provider / Service
+      description: "What external service does this wrap?"
+      placeholder: "e.g., Twilio, Notion, Slack"
+    validations:
+      required: true
+
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use Case
+      description: "What pipeline would you build with this component?"
+      placeholder: "I want to send SMS notifications from my data processing pipeline..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Component Type
+      options:
+        - connector
+        - filter
+        - hook
+        - bundle
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: interest
+    attributes:
+      label: Contribution Interest
+      options:
+        - label: "I'm willing to build this component myself"
+        - label: "I'd like someone else to build it"

@@ -1,0 +1,15 @@
+{
+  "name": "codeupipe-postgres",
+  "provider": "postgres",
+  "type": "connector",
+  "pypi": "codeupipe-postgres",
+  "repo": "https://github.com/codeuchain/codeupipe-postgres",
+  "description": "PostgreSQL queries, transactions, and bulk insert for codeupipe pipelines",
+  "categories": ["database", "sql"],
+  "filters": ["PostgresQuery", "PostgresExecute", "PostgresTransaction", "PostgresBulkInsert"],
+  "trust": "verified",
+  "min_codeupipe": "0.8.0",
+  "latest": "0.1.0",
+  "author": "codeuchain",
+  "license": "MIT"
+}

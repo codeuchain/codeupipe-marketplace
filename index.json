@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "updated": "2026-03-09T02:39:43Z",
+  "connectors": [
+    {
+      "name": "codeupipe-google-ai",
+      "provider": "google-ai",
+      "type": "connector",
+      "pypi": "codeupipe-google-ai",
+      "repo": "https://github.com/codeuchain/codeupipe-google-ai",
+      "description": "Google AI (Gemini) \u2014 multimodal generation, embeddings, and vision",
+      "categories": [
+        "ai",
+        "llm",
+        "multimodal",
+        "vision",
+        "embeddings"
+      ],
+      "filters": [
+        "GeminiGenerate",
+        "GeminiGenerateStream",
+        "GeminiEmbed",
+        "GeminiVision"
+      ],
+      "trust": "verified",
+      "min_codeupipe": "0.8.0",
+      "latest": "0.1.0",
+      "author": "codeuchain",
+      "license": "MIT"
+    },
+    {
+      "name": "codeupipe-postgres",
+      "provider": "postgres",
+      "type": "connector",
+      "pypi": "codeupipe-postgres",
+      "repo": "https://github.com/codeuchain/codeupipe-postgres",
+      "description": "PostgreSQL queries, transactions, and bulk insert for codeupipe pipelines",
+      "categories": [
+        "database",
+        "sql"
+      ],
+      "filters": [
+        "PostgresQuery",
+        "PostgresExecute",
+        "PostgresTransaction",
+        "PostgresBulkInsert"
+      ],
+      "trust": "verified",
+      "min_codeupipe": "0.8.0",
+      "latest": "0.1.0",
+      "author": "codeuchain",
+      "license": "MIT"
+    },
+    {
+      "name": "codeupipe-resend",
+      "provider": "resend",
+      "type": "connector",
+      "pypi": "codeupipe-resend",
+      "repo": "https://github.com/codeuchain/codeupipe-resend",
+      "description": "Resend transactional email and template rendering for codeupipe pipelines",
+      "categories": [
+        "email",
+        "notifications"
+      ],
+      "filters": [
+        "ResendEmail",
+        "ResendTemplate"
+      ],
+      "trust": "verified",
+      "min_codeupipe": "0.8.0",
+      "latest": "0.1.0",
+      "author": "codeuchain",
+      "license": "MIT"
+    },
+    {
+      "name": "codeupipe-stripe",
+      "provider": "stripe",
+      "type": "connector",
+      "pypi": "codeupipe-stripe",
+      "repo": "https://github.com/codeuchain/codeupipe-stripe",
+      "description": "Stripe checkout, subscriptions, webhooks, and customer management",
+      "categories": [
+        "payments",
+        "billing"
+      ],
+      "filters": [
+        "StripeCheckout",
+        "StripeSubscription",
+        "StripeWebhook",
+        "StripeCustomer"
+      ],
+      "trust": "verified",
+      "min_codeupipe": "0.8.0",
+      "latest": "0.1.0",
+      "author": "codeuchain",
+      "license": "MIT"
+    }
+  ]
+}

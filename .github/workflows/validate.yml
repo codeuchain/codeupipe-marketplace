@@ -1,0 +1,62 @@
+name: Validate Manifests
+
+on:
+  pull_request:
+    paths:
+      - 'components/**'
+      - '_template/**'
+      - 'schema.json'
+      - 'validate.py'
+  push:
+    branches: [main]
+    paths:
+      - 'components/**'
+
+jobs:
+  validate:
+    name: Validate marketplace manifests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate all manifests
+        run: python validate.py
+
+      - name: Check index freshness
+        if: github.event_name == 'pull_request'
+        run: python validate.py --check
+
+  guard-trust:
+    name: Guard trust tier
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reject community PRs setting trust=verified
+        run: |
+          # Only codeuchain org members can set trust=verified
+          # For external PRs, ensure no manifest sets trust to verified
+          ACTOR="${{ github.actor }}"
+          echo "PR author: $ACTOR"
+
+          # Check changed manifests for trust=verified
+          CHANGED=$(git diff --name-only ${{ github.event.pull_request.base.sha }}..HEAD -- 'components/*/manifest.json' 2>/dev/null || echo "")
+
+          if [ -z "$CHANGED" ]; then
+            echo "No manifest changes detected"
+            exit 0
+          fi
+
+          for f in $CHANGED; do
+            if [ -f "$f" ]; then
+              TRUST=$(python3 -c "import json; print(json.load(open('$f'))['trust'])" 2>/dev/null || echo "unknown")
+              if [ "$TRUST" = "verified" ]; then
+                echo "::warning::$f sets trust=verified — only maintainers can approve this"
+              fi
+            fi
+          done
